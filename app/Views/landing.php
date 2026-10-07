@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fluxa AI Finance — Autonomous Capital & Lending Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+              950: '#071855',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    /* Global guidelines */
+    .guideline-left {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(226, 232, 240, 0.8);
+      z-index: 40;
+      pointer-events: none;
+    }
+    .guideline-right {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(226, 232, 240, 0.8);
+      z-index: 40;
+      pointer-events: none;
+    }
+
+    /* Keyframe Animations */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: max-content;
+      animation: marquee 35s linear infinite;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes float-soft {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .anim-float-soft {
+      animation: float-soft 5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-soft {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.9; }
+    }
+    .anim-pulse-soft {
+      animation: pulse-soft 3s ease-in-out infinite;
+    }
+
+    @keyframes slide-x-soft {
+      0% { transform: translateX(-6px); }
+      50% { transform: translateX(6px); }
+      100% { transform: translateX(-6px); }
+    }
+    .anim-slide-x-1 {
+      animation: slide-x-soft 4s ease-in-out infinite;
+    }
+
+    @keyframes scale-y-up {
+      0%, 100% { transform: scaleY(0.4); }
+      50% { transform: scaleY(1); }
+    }
+    @keyframes scale-y-down {
+      0%, 100% { transform: scaleY(0.9); }
+      50% { transform: scaleY(0.35); }
+    }
+    .anim-bar-1 { animation: scale-y-up 2.8s ease-in-out infinite; transform-origin: bottom; }
+    .anim-bar-2 { animation: scale-y-down 3.2s ease-in-out infinite; transform-origin: bottom; }
+    .anim-bar-3 { animation: scale-y-up 2.4s ease-in-out infinite; transform-origin: bottom; }
+    .anim-bar-4 { animation: scale-y-down 3.6s ease-in-out infinite; transform-origin: bottom; }
+    .anim-bar-5 { animation: scale-y-up 3s ease-in-out infinite; transform-origin: bottom; }
+
+    @keyframes grid-pan {
+      0% { background-position: 0 0; }
+      100% { background-position: 40px 40px; }
+    }
+    .anim-grid-pan {
+      animation: grid-pan 8s linear infinite;
+    }
+
+    @keyframes orbit-spin {
+      from { transform: rotateX(65deg) rotateZ(0deg); }
+      to { transform: rotateX(65deg) rotateZ(360deg); }
+    }
+    .anim-orbit-1 {
+      animation: orbit-spin 20s linear infinite;
+    }
+    .anim-orbit-2 {
+      animation: orbit-spin 12s linear infinite reverse;
+    }
+
+    /* Template preview blurred text aesthetic */
+    .template-blur {
+      filter: blur(8px);
+      user-select: none;
+    }
+    .hover-reveal:hover .template-blur {
+      filter: blur(0px);
+      transition: filter 0.3s ease;
+    }
+
+    /* Custom accordion transition */
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+    details[open] summary .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    /* CTA Section 3D gradients */
+    .cta-radial-bg {
+      background: radial-gradient(circle at 90% 20%, rgba(37, 99, 235, 0.45) 0%, transparent 60%),
+                  linear-gradient(135deg, #0b2da8 0%, #071855 56%, #0c37c8 100%);
+    }
+
+    /* Card shadow */
+    .fluxa-card-shadow {
+      box-shadow: 0 16px 44px rgba(15, 23, 42, 0.07);
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-950 font-sans antialiased overflow-x-hidden relative selection:bg-blue-600 selection:text-white">
+
+  <!-- Vertical Guidelines at px-5 sm:px-9 lg:px-16 -->
+  <div class="guideline-left left-5 sm:left-9 lg:left-16"></div>
+  <div class="guideline-right right-5 sm:right-9 lg:right-16"></div>
+
+  <!-- Ambient blue blur circle in hero -->
+  <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/5 blur-3xl rounded-full pointer-events-none -z-10 transform translate-x-1/3 -translate-y-1/4"></div>
+
+  <!-- ============================================================== -->
+  <!-- SECTION 1: NAVIGATION & HERO                                   -->
+  <!-- ============================================================== -->
+  <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-5 sm:px-9 lg:px-16 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo: 5x5 grid of 2.5x2.5 rounded blue-700 squares -->
+      <a href="<?= site_url('/') ?>" class="flex items-center gap-3.5 group">
+        <div class="grid grid-cols-2 gap-1 p-1 bg-blue-50/60 rounded-xl border border-blue-100/80 group-hover:border-blue-200 transition-colors">
+          <div class="w-2.5 h-2.5 rounded-sm bg-blue-700"></div>
+          <div class="w-2.5 h-2.5 rounded-sm bg-blue-700"></div>
+          <div class="w-2.5 h-2.5 rounded-sm bg-blue-700"></div>
+          <div class="w-2.5 h-2.5 rounded-sm bg-blue-700"></div>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="font-bold text-xl tracking-tight text-slate-950">Fluxa</span>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-100 text-blue-700 tracking-wide uppercase font-mono">AI Finance</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+        <a href="#product" class="hover:text-blue-700 transition-colors">Product</a>
+        <a href="#solutions" class="hover:text-blue-700 transition-colors">Solutions</a>
+        <a href="#pricing" class="hover:text-blue-700 transition-colors">Pricing</a>
+        <a href="#security" class="hover:text-blue-700 transition-colors flex items-center gap-1.5">
+          Security
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+        </a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="flex items-center gap-3">
+        <?php if (logged_in()) : ?>
+          <a href="<?= site_url('home') ?>" class="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-700 bg-blue-50 px-4 py-2 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+          </a>
+        <?php else : ?>
+          <a href="<?= site_url('login') ?>" class="hidden sm:inline-flex text-sm font-semibold text-slate-700 hover:text-blue-700 px-4 py-2 transition-colors">
+            Sign in
+          </a>
+          <a href="<?= site_url('register') ?>" class="relative group inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white bg-blue-700 rounded-lg overflow-hidden shadow-md shadow-blue-700/20 hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200 hover:-translate-y-0.5">
+            <span class="absolute inset-0 bg-gradient-to-t from-transparent via-white/10 to-white/25 opacity-75 group-hover:opacity-100 transition-opacity"></span>
+            <span class="absolute -right-4 -bottom-4 w-12 h-12 bg-white/20 blur-xl rounded-full group-hover:scale-150 transition-transform duration-300"></span>
+            <span class="relative flex items-center gap-1.5">
+              Get started
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
+            </span>
+          </a>
+        <?php endif; ?>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Hero Main Content -->
+  <section class="relative pt-12 pb-24 md:pt-20 md:pb-32 overflow-hidden border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-5 sm:px-9 lg:px-16">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-[0.88fr_1.12fr] gap-12 lg:gap-8 items-center">
+        
+        <!-- Hero Left Column: Headline & Value Prop -->
+        <div class="max-w-xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-200 bg-blue-50/80 text-blue-800 text-xs font-semibold mb-6 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+            <span>Fluxa AI 3.0 Engine Live</span>
+            <span class="text-blue-400">•</span>
+            <span class="text-blue-600">Autonomous Underwriting</span>
+          </div>
+
+          <!-- Hero Headline (5.05rem xl size, tracking-[-0.065em], GSAP reveal word) -->
+          <h1 class="text-4xl sm:text-6xl lg:text-[4.75rem] xl:text-[5.05rem] font-extrabold leading-[0.98] tracking-[-0.065em] text-slate-950 mb-6">
+            <span class="reveal-word inline-block">Autonomous</span>
+            <span class="reveal-word inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-800">lending</span>
+            <span class="reveal-word inline-block">intelligence</span>
+            <span class="reveal-word inline-block">for</span>
+            <span class="reveal-word inline-block">modern</span>
+            <span class="reveal-word inline-block">finance.</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-8 font-normal">
+            Automate underwriting, orchestrate multi-entity capital flows, and audit real-time risk with an institutional-grade AI intelligence mesh.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-10">
+            <a href="<?= site_url('register') ?>" class="relative group inline-flex items-center justify-center px-7 py-3.5 text-base font-semibold text-white bg-blue-700 rounded-xl overflow-hidden shadow-lg shadow-blue-700/25 hover:shadow-xl hover:shadow-blue-500/35 transition-all duration-200 hover:-translate-y-0.5">
+              <span class="absolute inset-0 bg-gradient-to-t from-transparent to-white/20"></span>
+              <span class="relative flex items-center gap-2">
+                Deploy operations
+                <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+              </span>
+            </a>
+            <a href="#how-it-works" class="inline-flex items-center justify-center px-6 py-3.5 text-base font-semibold text-slate-800 bg-slate-100 hover:bg-slate-200/80 rounded-xl transition-all duration-200 hover:-translate-y-0.5">
+              <i data-lucide="play-circle" class="w-4 h-4 mr-2 text-blue-700"></i>
+              Live interactive walkthrough
+            </a>
+          </div>
+
+          <!-- Trust highlights -->
+          <div class="pt-6 border-t border-slate-200/80 grid grid-cols-3 gap-4 text-left">
+            <div>
+              <div class="text-2xl font-bold text-slate-950 font-mono tracking-tight">$4.8B+</div>
+              <div class="text-xs text-slate-500 mt-0.5">Processed volume</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-slate-950 font-mono tracking-tight">99.98%</div>
+              <div class="text-xs text-slate-500 mt-0.5">Precision rate</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-slate-950 font-mono tracking-tight">&lt; 140ms</div>
+              <div class="text-xs text-slate-500 mt-0.5">Decision latency</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Right Column: Console Mockup & Absolute Layered Cards -->
+        <div class="relative w-full min-h-[460px] sm:min-h-[540px] flex items-center justify-center">
+          
+          <!-- Base Backdrop Canvas Card -->
+          <div class="w-full bg-white/85 backdrop-blur-xl border border-slate-200/80 rounded-3xl p-6 fluxa-card-shadow relative overflow-hidden">
+            
+            <!-- Window header bar -->
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-rose-400"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                <span class="ml-2 text-xs font-mono font-semibold text-slate-500 tracking-wider">CONSOLE.FLUXA.SYS // v3.2</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                  Active Mesh
+                </span>
+              </div>
+            </div>
+
+            <!-- Top Left Sub-card: "Lending operations console" -->
+            <div class="bg-slate-50/90 border border-slate-200/70 rounded-2xl p-4 mb-4">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2.5">
+                  <div class="p-2 bg-blue-700 text-white rounded-lg">
+                    <i data-lucide="cpu" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-slate-950">Lending operations console</h3>
+                    <p class="text-xs text-slate-500">Autonomous rule evaluation cluster</p>
+                  </div>
+                </div>
+                <span class="text-xs font-mono font-semibold text-blue-700 bg-blue-100/70 px-2.5 py-1 rounded-md">ID: FLX-994</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs text-slate-600 bg-white border border-slate-200/60 p-2.5 rounded-lg">
+                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                <span class="truncate">SOC2 Type II • Multi-regional KYC/KYB gateway verified</span>
+              </div>
+            </div>
+
+            <!-- Center Metric Grid -->
+            <div class="grid grid-cols-3 gap-3 mb-4">
+              <div class="p-3.5 bg-slate-50/80 rounded-xl border border-slate-200/60">
+                <span class="text-[11px] text-slate-500 uppercase tracking-wider font-mono">Disbursal</span>
+                <div class="text-lg font-bold text-slate-900 mt-1 font-mono">$18.4M</div>
+                <div class="text-[11px] text-emerald-600 flex items-center gap-0.5 mt-0.5 font-medium">
+                  <i data-lucide="trending-up" class="w-3 h-3"></i> +24.8%
+                </div>
+              </div>
+              <div class="p-3.5 bg-slate-50/80 rounded-xl border border-slate-200/60">
+                <span class="text-[11px] text-slate-500 uppercase tracking-wider font-mono">Underwrite</span>
+                <div class="text-lg font-bold text-slate-900 mt-1 font-mono">1.24s</div>
+                <div class="text-[11px] text-blue-600 flex items-center gap-0.5 mt-0.5 font-medium">
+                  <i data-lucide="zap" class="w-3 h-3"></i> 99.4% auto
+                </div>
+              </div>
+              <div class="p-3.5 bg-slate-50/80 rounded-xl border border-slate-200/60">
+                <span class="text-[11px] text-slate-500 uppercase tracking-wider font-mono">Delinquency</span>
+                <div class="text-lg font-bold text-slate-900 mt-1 font-mono">0.04%</div>
+                <div class="text-[11px] text-emerald-600 flex items-center gap-0.5 mt-0.5 font-medium">
+                  <i data-lucide="shield" class="w-3 h-3"></i> -18 bps
+                </div>
+              </div>
+            </div>
+
+            <!-- Pipeline Visual Bar -->
+            <div class="p-4 bg-slate-900 text-white rounded-2xl mb-2">
+              <div class="flex items-center justify-between text-xs mb-2">
+                <span class="text-slate-400 font-mono">INTELLIGENCE PIPELINE</span>
+                <span class="text-emerald-400 font-mono flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                  STREAMING
+                </span>
+              </div>
+              <div class="space-y-2">
+                <div class="flex items-center justify-between text-xs text-slate-300">
+                  <span>Merchant Credit Scoring (Ensemble v4)</span>
+                  <span class="font-mono text-blue-400">99.8 / 100</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                  <div class="bg-blue-500 h-1.5 rounded-full w-[88%] anim-slide-x-1"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Right Floating Badge: "Ready to fund" blue gradient card ($250,000) -->
+          <div class="absolute -bottom-6 -right-3 sm:-right-6 bg-gradient-to-br from-blue-700 via-blue-800 to-indigo-950 text-white p-5 rounded-2xl shadow-2xl border border-blue-400/30 max-w-xs anim-float-soft z-20">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-xs font-semibold tracking-wide text-blue-200 uppercase font-mono">Ready to fund</span>
+              </div>
+              <span class="text-[11px] font-mono text-blue-300 bg-white/10 px-2 py-0.5 rounded">AUTO-APPROVED</span>
+            </div>
+            <div class="text-3xl font-extrabold font-mono tracking-tight text-white mb-1">
+              $250,000
+            </div>
+            <p class="text-xs text-blue-100/90 leading-relaxed">
+              Disbursal scheduled for instant ACH Rail. Liquidity pool allocated via Apex Prime.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- SECTION 2: LOGO MARQUEE (11 Monochrome Partner Logos)          -->
+  <!-- ============================================================== -->
+  <section class="py-12 border-b border-slate-200/80 bg-slate-50/50">
+    <div class="max-w-7xl mx-auto px-5 sm:px-9 lg:px-16 mb-6 text-center">
+      <p class="text-xs uppercase font-mono font-semibold tracking-wider text-slate-500">
+        Institutional infrastructure trusted by leading global operators
+      </p>
+    </div>
+
+    <!-- Container with linear-gradient mask -->
+    <div class="relative overflow-hidden w-full" style="-webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);">
+      <div class="animate-marquee flex items-center gap-16 py-3">
+        <!-- Logo List (NASA, SpaceX, Uber, Visa, Grab, Bose, Discover, DJI, Nikon, Craftsman, Sony) -->
+        <img src="https://api.iconify.design/simple-icons:nasa.svg?color=%2394a3b8" alt="NASA" class="h-7 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:spacex.svg?color=%2394a3b8" alt="SpaceX" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:uber.svg?color=%2394a3b8" alt="Uber" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:visa.svg?color=%2394a3b8" alt="Visa" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:grab.svg?color=%2394a3b8" alt="Grab" class="h-7 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:bose.svg?color=%2394a3b8" alt="Bose" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:discover.svg?color=%2394a3b8" alt="Discover" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:dji.svg?color=%2394a3b8" alt="DJI" class="h-7 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:nikon.svg?color=%2394a3b8" alt="Nikon" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:sony.svg?color=%2394a3b8" alt="Sony" class="h-5 w-auto opacity-70 hover:opacity-100 transition-opacity">
+
+        <!-- Duplicate for infinite seamless scroll -->
+        <img src="https://api.iconify.design/simple-icons:nasa.svg?color=%2394a3b8" alt="NASA" class="h-7 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:spacex.svg?color=%2394a3b8" alt="SpaceX" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:uber.svg?color=%2394a3b8" alt="Uber" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:visa.svg?color=%2394a3b8" alt="Visa" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:grab.svg?color=%2394a3b8" alt="Grab" class="h-7 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:bose.svg?color=%2394a3b8" alt="Bose" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:discover.svg?color=%2394a3b8" alt="Discover" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:dji.svg?color=%2394a3b8" alt="DJI" class="h-7 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:nikon.svg?color=%2394a3b8" alt="Nikon" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity">
+        <img src="https://api.iconify.design/simple-icons:sony.svg?color=%2394a3b8" alt="Sony" class="h-5 w-auto opacity-70 hover:opacity-100 transition-opacity">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- SECTION 3: FEATURE GRID (Four-column Grid)                     -->
+  <!-- ============================================================== -->
+  <section id="product" class="py-24 border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-5 sm:px-9 lg:px-16">
+      
+      <div class="max-w-2xl mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 mb-3">
+          <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+          Architectural Core
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-950 mb-4">
+          Built for scale, audited for zero delinquency.
+        </h2>
+        <p class="text-slate-600 text-base leading-relaxed">
+          Four synchronized pillars engineered to collapse traditional multi-week lending lifecycles into instantaneous autonomous events.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        
+        <!-- Card 1: Auto Flow (Animated vertical blue-200 gradient line & anim-slide-x-1 bars) -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-200/80 fluxa-card-shadow hover:border-blue-400 transition-all flex flex-col justify-between">
+          <div>
+            <!-- Visual Element -->
+            <div class="h-44 bg-slate-50 rounded-2xl p-4 border border-slate-100 relative overflow-hidden flex flex-col justify-between mb-6">
+              <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-600 via-blue-200 to-transparent"></div>
+              
+              <div class="flex items-center gap-3 relative z-10">
+                <div class="w-7 h-7 rounded-full bg-blue-700 text-white flex items-center justify-center text-xs font-bold shadow-md">1</div>
+                <div class="text-xs font-mono font-semibold text-slate-700">Origination Trigger</div>
+              </div>
+
+              <!-- Sliding bars -->
+              <div class="space-y-2 pl-8 relative z-10">
+                <div class="h-2 bg-blue-700/80 rounded-full w-24 anim-slide-x-1"></div>
+                <div class="h-2 bg-blue-400/60 rounded-full w-36 anim-slide-x-1" style="animation-delay: 0.5s;"></div>
+                <div class="h-2 bg-slate-200 rounded-full w-28"></div>
+              </div>
+
+              <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-2 border-t border-slate-200/60 relative z-10">
+                <span>Rerouting ACH</span>
+                <span class="text-blue-600 font-semibold">100% OK</span>
+              </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-slate-950 mb-2">Autonomous Capital Flow</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Programmatic rules execute tranche deployment, syndication splits, and collateral locks in real-time.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-blue-700">
+            <span>Explore protocol</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <!-- Card 2: Secured (Dark blue theme #06145b with anim-pulse-soft on central shield) -->
+        <div class="bg-[#06145b] text-white rounded-3xl p-6 border border-blue-900 fluxa-card-shadow hover:border-blue-500 transition-all flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-48 h-48 bg-blue-600/20 blur-3xl rounded-full"></div>
+          <div>
+            <!-- Visual Element -->
+            <div class="h-44 bg-blue-950/70 rounded-2xl p-4 border border-blue-800/80 relative flex items-center justify-center mb-6">
+              <!-- Radial ring -->
+              <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div class="w-32 h-32 rounded-full border border-blue-500/20 animate-ping" style="animation-duration: 4s;"></div>
+                <div class="w-24 h-24 rounded-full border border-blue-500/30"></div>
+              </div>
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-700 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/30 anim-pulse-soft z-10">
+                <i data-lucide="shield-alert" class="w-8 h-8 text-white"></i>
+              </div>
+              <div class="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-blue-300">
+                <span>AES-256 HSM</span>
+                <span class="text-emerald-400">SOC2 Type II</span>
+              </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-white mb-2">Cryptographic Vaulting</h3>
+            <p class="text-sm text-blue-200/80 leading-relaxed">
+              Multi-signature authorizations with cold-vaulted key shards and air-gapped ledger validation.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-blue-900/80 flex items-center justify-between text-xs font-semibold text-blue-300">
+            <span>Security specs</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <!-- Card 3: Visibility (Animated bar chart with scale-y-up and scale-y-down keyframes on 5 bars) -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-200/80 fluxa-card-shadow hover:border-blue-400 transition-all flex flex-col justify-between">
+          <div>
+            <!-- Visual Element -->
+            <div class="h-44 bg-slate-50 rounded-2xl p-4 border border-slate-100 flex flex-col justify-between mb-6">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-mono text-slate-500">LIQUIDITY TRAJECTORY</span>
+                <span class="font-mono text-emerald-600 font-bold">+31.2%</span>
+              </div>
+              
+              <!-- 5 Animated Bars -->
+              <div class="flex items-end justify-between gap-3 h-24 px-2">
+                <div class="w-full bg-blue-700 rounded-t-lg h-16 anim-bar-1"></div>
+                <div class="w-full bg-indigo-500 rounded-t-lg h-20 anim-bar-2"></div>
+                <div class="w-full bg-blue-600 rounded-t-lg h-24 anim-bar-3"></div>
+                <div class="w-full bg-sky-400 rounded-t-lg h-12 anim-bar-4"></div>
+                <div class="w-full bg-blue-800 rounded-t-lg h-20 anim-bar-5"></div>
+              </div>
+
+              <div class="flex justify-between text-[10px] font-mono text-slate-400 border-t border-slate-200/60 pt-1">
+                <span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span><span>YTD</span>
+              </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-slate-950 mb-2">Granular Visibility</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Deep telemetry into cost basis, portfolio concentration, weighted returns, and cash drag across all tranches.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-blue-700">
+            <span>View telemetry</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <!-- Card 4: Integration (2x2 grid of icons with central "+" hub) -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-200/80 fluxa-card-shadow hover:border-blue-400 transition-all flex flex-col justify-between">
+          <div>
+            <!-- Visual Element -->
+            <div class="h-44 bg-slate-50 rounded-2xl p-4 border border-slate-100 relative flex items-center justify-center mb-6">
+              <!-- 2x2 Grid -->
+              <div class="grid grid-cols-2 gap-10 w-full max-w-[140px]">
+                <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-700 shadow-sm">
+                  <i data-lucide="database" class="w-5 h-5"></i>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-700 shadow-sm">
+                  <i data-lucide="credit-card" class="w-5 h-5"></i>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-700 shadow-sm">
+                  <i data-lucide="landmark" class="w-5 h-5"></i>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-700 shadow-sm">
+                  <i data-lucide="code-2" class="w-5 h-5"></i>
+                </div>
+              </div>
+
+              <!-- Central "+" Hub -->
+              <div class="absolute w-8 h-8 rounded-full bg-blue-700 text-white flex items-center justify-center shadow-md font-bold text-base border-2 border-white">
+                +
+              </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-slate-950 mb-2">Universal Integration</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Connect core banking ledgers, ERP systems, Plaid, Stripe, and modern treasury endpoints via a unified SDK.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-blue-700">
+            <span>Read API docs</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- SECTION 4: PROCESS WORKFLOW (HOW IT WORKS)                     -->
+  <!-- ============================================================== -->
+  <section id="solutions" class="py-24 border-b border-slate-200/80 bg-slate-50/40">
+    <div class="max-w-7xl mx-auto px-5 sm:px-9 lg:px-16">
+      
+      <div class="text-center max-w-2xl mx-auto mb-20">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-100/70 text-blue-800 border border-blue-200 mb-3">
+          <i data-lucide="git-merge" class="w-3.5 h-3.5"></i>
+          Sequential Lifecycle
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-950 mb-4">
+          How autonomous lending executes
+        </h2>
+        <p class="text-slate-600 text-base leading-relaxed">
+          From multi-source ingestion to automated monitoring, every step runs without manual intervention.
+        </p>
+      </div>
+
+      <!-- Three Vertical / Horizontal Steps -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Step 01: Intake -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200/80 fluxa-card-shadow flex flex-col justify-between relative">
+          <div>
+            <div class="flex items-center justify-between mb-8">
+              <span class="text-4xl font-extrabold font-mono text-slate-200">01</span>
+              <span class="text-xs font-mono font-semibold px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md">INGESTION</span>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-slate-950 mb-3">Intake & Synthesis</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+              Pulls live bank telemetry, tax returns, and real-time revenue streams into a unified normalized financial model.
+            </p>
+          </div>
+
+          <!-- Mini visual card -->
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200/70 space-y-2.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-500 font-mono">KYB Document Pipeline</span>
+              <span class="text-emerald-600 font-semibold">100% Parsed</span>
+            </div>
+            <div class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200/60 text-xs">
+              <i data-lucide="file-check-2" class="w-4 h-4 text-blue-700"></i>
+              <span class="truncate font-medium text-slate-800">Bank_Statement_Q3_Verified.pdf</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 02: Decision (Special blue-700/45 background with backdrop-blur & icon grid) -->
+        <div class="bg-blue-700/10 backdrop-blur-xl rounded-3xl p-8 border-2 border-blue-600 fluxa-card-shadow flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-12 -top-12 w-48 h-48 bg-blue-600/20 blur-2xl rounded-full"></div>
+          <div>
+            <div class="flex items-center justify-between mb-8">
+              <span class="text-4xl font-extrabold font-mono text-blue-700">02</span>
+              <span class="text-xs font-mono font-semibold px-2.5 py-1 bg-blue-700 text-white rounded-md shadow-sm">CORE COGNITION</span>
+            </div>
+
+            <h3 class="text-2xl font-bold text-slate-950 mb-3">Instant Underwriting</h3>
+            <p class="text-sm text-slate-700 leading-relaxed mb-6">
+              Multi-model ensemble computes real-time default probability, sets dynamic debt limits, and structures tranches.
+            </p>
+          </div>
+
+          <!-- Icon grid: briefcase-business, badge-dollar-sign, user -->
+          <div class="bg-white/90 backdrop-blur-md rounded-2xl p-5 border border-blue-200 shadow-sm">
+            <div class="grid grid-cols-3 gap-3 mb-3">
+              <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-blue-50 border border-blue-100">
+                <i data-lucide="briefcase" class="w-5 h-5 text-blue-700 mb-1"></i>
+                <span class="text-[10px] font-mono text-slate-600">KYB Entity</span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+                <i data-lucide="badge-dollar-sign" class="w-5 h-5 text-emerald-700 mb-1"></i>
+                <span class="text-[10px] font-mono text-slate-600">Capacity</span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-indigo-50 border border-indigo-100">
+                <i data-lucide="user-check" class="w-5 h-5 text-indigo-700 mb-1"></i>
+                <span class="text-[10px] font-mono text-slate-600">Guarantor</span>
+              </div>
+            </div>
+            <div class="text-center font-mono text-xs font-bold text-blue-700 bg-blue-50/80 py-1.5 rounded-lg border border-blue-100">
+              DECISION: APPROVE WITH $250K CEILING
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 03: Monitor (Circular progress gauge conic-gradient 98.2% & SVG line path) -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200/80 fluxa-card-shadow flex flex-col justify-between relative">
+          <div>
+            <div class="flex items-center justify-between mb-8">
+              <span class="text-4xl font-extrabold font-mono text-slate-200">03</span>
+              <span class="text-xs font-mono font-semibold px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md">LIVE SURVEILLANCE</span>
+            </div>
+
+            <h3 class="text-2xl font-bold text-slate-950 mb-3">Continuous Covenant Audit</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-6">
+              Post-disbursement tracking continuously checks debt service coverage ratios and triggers proactive intervention.
+            </p>
+          </div>
+
+          <!-- Gauge and SVG path -->
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200/70">
+            <div class="flex items-center justify-between mb-3">
+              <!-- Conic Gradient Circle 98.2% -->
+              <div class="flex items-center gap-3">
+                <div class="relative w-12 h-12 rounded-full flex items-center justify-center" style="background: conic-gradient(#1d4ed8 0% 98.2%, #e2e8f0 98.2% 100%);">
+                  <div class="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center text-[10px] font-mono font-bold text-slate-800">
+                    98%
+                  </div>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-slate-900">Health Index</div>
+                  <div class="text-[11px] text-emerald-600">Optimal Liquidity</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Custom SVG Line Path -->
+            <div class="h-10 w-full overflow-hidden flex items-end">
+              <svg viewBox="0 0 100 32" class="w-full h-8 stroke-blue-700 fill-none" preserveAspectRatio="none">
+                <path d="M2 28 C18 24 22 12 38 15 C54 18 62 6 78 8 C88 9 94 4 98 4" stroke-width="2.5" stroke-linecap="round"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- SECTION 5: TESTIMONIALS (4-Column Article Grid with Quirks)    -->
+  <!-- ============================================================== -->
+  <section class="py-24 border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-5 sm:px-9 lg:px-16">
+      
+      <div class="max-w-2xl mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 mb-3">
+          <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+          Validated Operators
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-950 mb-4">
+          Trusted by operators deploying $5B+ across credit facilities
+        </h2>
+        <p class="text-slate-600 text-base leading-relaxed">
+          Hover over each quote to reveal full operational commentary and verified performance metrics.
+        </p>
+      </div>
+
+      <!-- 4-column article grid with hover reset rotations (-rotate-2, rotate-1, rotate-2) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Card 1: Maya Chen (Rotation -rotate-2) -->
+        <article class="hover-reveal bg-white rounded-3xl p-6 border border-slate-200/80 fluxa-card-shadow -rotate-2 hover:rotate-0 hover:-translate-y-2 hover:scale-[1.02] hover:border-blue-600 transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" alt="Maya Chen" class="w-12 h-12 rounded-full object-cover border-2 border-blue-100">
+              <div>
+                <h4 class="font-bold text-sm text-slate-950">Maya Chen</h4>
+                <p class="text-xs text-slate-500">VP Capital at StrataFund</p>
+              </div>
+            </div>
+            <p class="text-sm text-slate-700 leading-relaxed mb-4">
+              "Fluxa cut our origination cycle from 12 business days to 14 minutes. We scaled portfolio volume 4x without adding a single credit analyst."
+            </p>
+            <!-- Template preview blurred metric -->
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+              <div class="text-xs font-mono text-slate-500 mb-1">Portfolio Delinquency Rate:</div>
+              <div class="text-base font-bold text-blue-700 template-blur font-mono">0.021% Verified</div>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-100 flex items-center gap-1 text-amber-500 text-xs font-mono">
+            ★★★★★ <span class="text-slate-400 ml-1">Verified Audit</span>
+          </div>
+        </article>
+
+        <!-- Card 2: Arjun Patel (Rotation rotate-1) -->
+        <article class="hover-reveal bg-white rounded-3xl p-6 border border-slate-200/80 fluxa-card-shadow rotate-1 hover:rotate-0 hover:-translate-y-2 hover:scale-[1.02] hover:border-blue-600 transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=96&h=96&q=80" alt="Arjun Patel" class="w-12 h-12 rounded-full object-cover border-2 border-blue-100">
+              <div>
+                <h4 class="font-bold text-sm text-slate-950">Arjun Patel</h4>
+                <p class="text-xs text-slate-500">Chief Risk Officer, Nexis</p>
+              </div>
+            </div>
+            <p class="text-sm text-slate-700 leading-relaxed mb-4">
+              "The autonomous covenant auditing prevents credit deterioration before it shows up on standard monthly borrower financial reports."
+            </p>
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+              <div class="text-xs font-mono text-slate-500 mb-1">Covenant Breach Prevention:</div>
+              <div class="text-base font-bold text-emerald-600 template-blur font-mono">99.7% Precision</div>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-100 flex items-center gap-1 text-amber-500 text-xs font-mono">
+            ★★★★★ <span class="text-slate-400 ml-1">Verified Audit</span>
+          </div>
+        </article>
+
+        <!-- Card 3: Elena Rodriguez (Rotation -rotate-1) -->
+        <article class="hover-reveal bg-white rounded-3xl p-6 border border-slate-200/80 fluxa-card-shadow -rotate-1 hover:rotate-0 hover:-translate-y-2 hover:scale-[1.02] hover:border-blue-600 transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg" alt="Elena Rodriguez" class="w-12 h-12 rounded-full object-cover border-2 border-blue-100">
+              <div>
+                <h4 class="font-bold text-sm text-slate-950">Elena Rodriguez</h4>
+                <p class="text-xs text-slate-500">Head of Credit, PrimeLend</p>
+              </div>
+            </div>
+            <p class="text-sm text-slate-700 leading-relaxed mb-4">
+              "Connecting our legacy core banking ledgers directly to the Fluxa multi-model intelligence mesh took less than a single afternoon."
+            </p>
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+              <div class="text-xs font-mono text-slate-500 mb-1">Integration Timeline:</div>
+              <div class="text-base font-bold text-blue-700 template-blur font-mono">&lt; 4 Hours Total</div>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-100 flex items-center gap-1 text-amber-500 text-xs font-mono">
+            ★★★★★ <span class="text-slate-400 ml-1">Verified Audit</span>
+          </div>
+        </article>
+
+        <!-- Card 4: David Park (Rotation rotate-2) -->
+        <article class="hover-reveal bg-white rounded-3xl p-6 border border-slate-200/80 fluxa-card-shadow rotate-2 hover:rotate-0 hover:-translate-y-2 hover:scale-[1.02] hover:border-blue-600 transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c543a9e1-f226-4ced-80b0-feb8445a75b9_1600w.jpg" alt="David Park" class="w-12 h-12 rounded-full object-cover border-2 border-blue-100">
+              <div>
+                <h4 class="font-bold text-sm text-slate-950">David Park</h4>
+                <p class="text-xs text-slate-500">Managing Director, Horizon VC</p>
+              </div>
+            </div>
+            <p class="text-sm text-slate-700 leading-relaxed mb-4">
+              "Fluxa transformed debt facility operations. The multi-tranche syndication automation eliminated human errors entirely."
+            </p>
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+              <div class="text-xs font-mono text-slate-500 mb-1">Annual Cost Reduction:</div>
+              <div class="text-base font-bold text-emerald-600 template-blur font-mono">$1,420,000 / Yr</div>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-100 flex items-center gap-1 text-amber-500 text-xs font-mono">
+            ★★★★★ <span class="text-slate-400 ml-1">Verified Audit</span>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- SECTION 6: PRICING & FAQ                                       -->
+  <!-- ============================================================== -->
+  <section id="pricing" class="py-24 border-b border-slate-200/80 bg-slate-50/50">
+    <div class="max-w-7xl mx-auto px-5 sm:px-9 lg:px-16">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-100/70 text-blue-800 border border-blue-200 mb-3">
+          <i data-lucide="tag" class="w-3.5 h-3.5"></i>
+          Predictable Scale
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-950 mb-4">
+          Transparent institutional pricing
+        </h2>
+        <p class="text-slate-600 text-base leading-relaxed">
+          Scale volume without per-seat penalty. Pay for verified autonomous underwriting execution.
+        </p>
+      </div>
+
+      <!-- Pricing Cards (Starter, Growth [Dark Popular], Enterprise) -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-24">
+        
+        <!-- Starter Card -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200/80 fluxa-card-shadow flex flex-col justify-between hover:border-slate-300 transition-all">
+          <div>
+            <div class="text-xs font-mono uppercase font-semibold text-slate-500 mb-2">Starter Tier</div>
+            <h3 class="text-2xl font-bold text-slate-950 mb-2">Operator</h3>
+            <p class="text-sm text-slate-600 mb-6">For emerging lenders up to $10M in active originations.</p>
+            
+            <div class="flex items-baseline gap-1 mb-6">
+              <span class="text-4xl sm:text-5xl font-extrabold font-mono text-slate-950">$2,400</span>
+              <span class="text-sm font-medium text-slate-500">/month</span>
+            </div>
+
+            <ul class="space-y-3.5 text-sm text-slate-700 mb-8 border-t border-slate-100 pt-6">
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                <span>Up to $10M monthly loan origination</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                <span>Core KYC & KYB automation mesh</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                <span>Plaid & Stripe banking connectors</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-slate-400">
+                <i data-lucide="x" class="w-4 h-4 text-slate-300 shrink-0"></i>
+                <span class="line-through">Custom ensemble risk modeling</span>
+              </li>
+            </ul>
+          </div>
+
+          <a href="<?= site_url('register') ?>" class="w-full py-3.5 px-4 text-center rounded-xl border border-slate-300 font-semibold text-slate-800 hover:bg-slate-50 transition-colors">
+            Start with Operator
+          </a>
+        </div>
+
+        <!-- Growth Card: Dark "Most Popular" Variant with Performance Stat Sub-grid -->
+        <div class="bg-[#071855] text-white rounded-3xl p-8 border-2 border-blue-500 fluxa-card-shadow flex flex-col justify-between relative overflow-hidden shadow-2xl">
+          <!-- Most popular tag -->
+          <div class="absolute top-5 right-5">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-gradient-to-r from-blue-600 to-indigo-500 text-white shadow-md">
+              Most Popular
+            </span>
+          </div>
+
+          <div>
+            <div class="text-xs font-mono uppercase font-semibold text-blue-300 mb-2">Growth Tier</div>
+            <h3 class="text-2xl font-bold text-white mb-2">Institutional Scale</h3>
+            <p class="text-sm text-blue-200/80 mb-6">Autonomous capital flow for high-velocity origination desks.</p>
+            
+            <div class="flex items-baseline gap-1 mb-6">
+              <span class="text-4xl sm:text-5xl font-extrabold font-mono text-white">$6,800</span>
+              <span class="text-sm font-medium text-blue-300">/month</span>
+            </div>
+
+            <!-- Performance Stat Sub-grid -->
+            <div class="grid grid-cols-2 gap-3 p-3.5 bg-blue-900/60 rounded-xl border border-blue-700/60 mb-6 font-mono text-xs">
+              <div>
+                <span class="text-blue-300 block text-[10px]">THROUGHPUT</span>
+                <span class="font-bold text-white text-sm">$100M+ Mo</span>
+              </div>
+              <div>
+                <span class="text-blue-300 block text-[10px]">DECISION SPEED</span>
+                <span class="font-bold text-emerald-400 text-sm">~ 180 ms</span>
+              </div>
+            </div>
+
+            <ul class="space-y-3.5 text-sm text-blue-100 mb-8 border-t border-blue-800/80 pt-6">
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <span>Unlimited pipeline originations</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <span>Custom underwriting ensemble engine</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <span>Automated multi-tranche syndication</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <span>Dedicated credit engineering pod (24/7)</span>
+              </li>
+            </ul>
+          </div>
+
+          <a href="<?= site_url('register') ?>" class="w-full py-3.5 px-4 text-center rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-0.5">
+            Deploy Institutional
+          </a>
+        </div>
+
+        <!-- Enterprise Card -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200/80 fluxa-card-shadow flex flex-col justify-between hover:border-slate-300 transition-all">
+          <div>
+            <div class="text-xs font-mono uppercase font-semibold text-slate-500 mb-2">Custom Tier</div>
+            <h3 class="text-2xl font-bold text-slate-950 mb-2">Sovereign / Bank</h3>
+            <p class="text-sm text-slate-600 mb-6">Private-cloud or on-prem deployment for commercial banks.</p>
+            
+            <div class="flex items-baseline gap-1 mb-6">
+              <span class="text-4xl sm:text-5xl font-extrabold font-mono text-slate-950">Custom</span>
+              <span class="text-sm font-medium text-slate-500">/annual SLA</span>
+            </div>
+
+            <ul class="space-y-3.5 text-sm text-slate-700 mb-8 border-t border-slate-100 pt-6">
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                <span>Air-gapped on-premise installation</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                <span>Bespoke legacy core banking connector suite</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                <span>Custom regulatory compliance mapping</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                <span>99.999% uptime contractual SLA</span>
+              </li>
+            </ul>
+          </div>
+
+          <a href="mailto:contact@siarajib.software" class="w-full py-3.5 px-4 text-center rounded-xl border border-slate-300 font-semibold text-slate-800 hover:bg-slate-50 transition-colors">
+            Contact Capital Architect
+          </a>
+        </div>
+
+      </div>
+
+      <!-- FAQ Accordion using <details> tags with custom '+' rotating 45deg -->
+      <div class="max-w-3xl mx-auto pt-10">
+        <h3 class="text-2xl font-bold text-slate-950 text-center mb-10 tracking-tight">
+          Frequently Answered Inquiries
+        </h3>
+
+        <div class="space-y-4">
+          
+          <details class="group bg-white rounded-2xl border border-slate-200/80 p-5 fluxa-card-shadow transition-all">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 text-base">
+              <span>How does the autonomous underwriting model maintain zero hallucination?</span>
+              <span class="faq-icon text-xl font-bold text-blue-700 transition-transform duration-200">+</span>
+            </summary>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed pt-2 border-t border-slate-100">
+              Fluxa uses deterministic mathematical verification models combined with constrained multi-agent validators. Raw financial ledgers undergo dual-entry cryptographic cross-checks before any tranche scoring is emitted.
+            </p>
+          </details>
+
+          <details class="group bg-white rounded-2xl border border-slate-200/80 p-5 fluxa-card-shadow transition-all">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 text-base">
+              <span>Can we train models on our proprietary credit historical dataset?</span>
+              <span class="faq-icon text-xl font-bold text-blue-700 transition-transform duration-200">+</span>
+            </summary>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed pt-2 border-t border-slate-100">
+              Yes. Institutional and Sovereign tiers include isolated fine-tuning pipelines. Your data remains completely isolated in your designated HSM enclave and is never used in external foundational weights.
+            </p>
+          </details>
+
+          <details class="group bg-white rounded-2xl border border-slate-200/80 p-5 fluxa-card-shadow transition-all">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 text-base">
+              <span>What banking integrations and ledger formats are supported out-of-the-box?</span>
+              <span class="faq-icon text-xl font-bold text-blue-700 transition-transform duration-200">+</span>
+            </summary>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed pt-2 border-t border-slate-100">
+              We natively support BAI2, MT940, ISO 20022 XML, Plaid Core, Stripe Treasury, Finastra, and standard cloud accounting ledgers (NetSuite, QuickBooks, Xero).
+            </p>
+          </details>
+
+          <details class="group bg-white rounded-2xl border border-slate-200/80 p-5 fluxa-card-shadow transition-all">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 text-base">
+              <span>How are regulatory audit trails maintained for banking regulators?</span>
+              <span class="faq-icon text-xl font-bold text-blue-700 transition-transform duration-200">+</span>
+            </summary>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed pt-2 border-t border-slate-100">
+              Every decision outputs an immutable, mathematically verifiable decision tree log. Regulators can inspect every variable, weighting, and policy clause in plain English or standardized audit JSON.
+            </p>
+          </details>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- SECTION 7: FOOTER CTA & 3D SCENE                               -->
+  <!-- ============================================================== -->
+  <section class="py-24 relative overflow-hidden cta-radial-bg text-white">
+    
+    <!-- Panning Grid Background -->
+    <div class="absolute inset-0 opacity-15 anim-grid-pan pointer-events-none" style="background-image: linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+    <!-- 3D Rings: Two dashed rings (320px and 180px) using rotateX(65deg) and infinite rotation -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none -z-0 opacity-40">
+      <div class="w-[320px] h-[320px] rounded-full border-2 border-dashed border-blue-300 anim-orbit-1"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] rounded-full border-2 border-dashed border-indigo-200 anim-orbit-2"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-5 sm:px-9 lg:px-16 text-center relative z-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-blue-200 border border-white/20 mb-6 backdrop-blur-md">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Ready to deploy operations
+      </div>
+
+      <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6">
+        Transition to autonomous finance today.
+      </h2>
+      <p class="text-blue-100/90 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+        Request private sandbox access or speak directly with an enterprise capital systems engineer.
+      </p>
+
+      <!-- Subscription Form with Blue-700 Button -->
+      <form class="max-w-md mx-auto flex flex-col sm:flex-row items-center gap-3 p-1.5 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 mb-6" onsubmit="event.preventDefault(); alert('Request submitted successfully. Our capital engineering desk will contact you within 1 business day.');">
+        <input type="email" required placeholder="Enter corporate email..." class="w-full px-4 py-3 bg-transparent text-white placeholder-blue-200/70 text-sm focus:outline-none rounded-xl">
+        <button type="submit" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-blue-700 hover:bg-blue-600 font-semibold text-sm whitespace-nowrap shadow-lg shadow-blue-900/50 transition-all hover:-translate-y-0.5">
+          Request Access
+        </button>
+      </form>
+
+      <div class="flex items-center justify-center gap-6 text-xs text-blue-200/80 font-mono">
+        <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> SOC2 Type II Certified</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> No Credit Card Required</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Global Footer -->
+  <footer class="py-12 bg-slate-950 text-slate-400 border-t border-slate-900 text-sm">
+    <div class="max-w-7xl mx-auto px-5 sm:px-9 lg:px-16 flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-3">
+        <div class="grid grid-cols-2 gap-1 p-1 bg-blue-950 rounded-lg border border-blue-900">
+          <div class="w-2 h-2 rounded-sm bg-blue-500"></div>
+          <div class="w-2 h-2 rounded-sm bg-blue-500"></div>
+          <div class="w-2 h-2 rounded-sm bg-blue-500"></div>
+          <div class="w-2 h-2 rounded-sm bg-blue-500"></div>
+        </div>
+        <span class="font-bold text-white text-base tracking-tight">Fluxa AI Finance</span>
+        <span class="text-xs text-slate-600 font-mono">© 2026 Fluxa Systems Corp.</span>
+      </div>
+
+      <div class="flex items-center gap-8 text-xs font-mono">
+        <a href="#" class="hover:text-white transition-colors">SYSTEM STATUS: 99.99%</a>
+        <a href="#" class="hover:text-white transition-colors">PRIVACY POLICY</a>
+        <a href="#" class="hover:text-white transition-colors">SECURITY DISCLOSURE</a>
+        <a href="<?= site_url('login') ?>" class="text-blue-400 hover:underline">SIA AKN APP LOGIN &rarr;</a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Script Initializations -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // GSAP ScrollTrigger & Reveal Word Animations
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof gsap !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Headline reveal word animation with initial blur filter
+        gsap.fromTo(".reveal-word", 
+          { 
+            opacity: 0, 
+            y: 24, 
+            filter: "blur(10px)" 
+          }, 
+          { 
+            opacity: 1, 
+            y: 0, 
+            filter: "blur(0px)",
+            duration: 0.9, 
+            stagger: 0.12, 
+            ease: "power3.out" 
+          }
+        );
+
+        // Subtle stagger reveal for features
+        gsap.from(".fluxa-card-shadow", {
+          scrollTrigger: {
+            trigger: "#product",
+            start: "top 80%"
+          },
+          opacity: 0,
+          y: 30,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power2.out"
+        });
+      }
+    });
+  </script>
+</body>
+</html>
