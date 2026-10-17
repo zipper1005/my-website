@@ -1058,3 +1058,43 @@ select.form-control option {
   padding: 10px 14px !important;
 }
 
+
+
+/* SIA AKN-IPB visual refinement: calmer surfaces, less glow, better readability. */
+:root {
+  --bg-canvas: #0b1422; --bg-navy: #0b1422; --bg-surface-1: #111e30;
+  --bg-surface-2: #17273d; --bg-surface-elevated: #17273d;
+  --border-subtle: #26384f; --border-strong: #354d6b;
+  --blue-primary: #3978d4; --blue-hover: #2e66b8; --blue-light: #8db9f4;
+  --blue-glow: rgba(57,120,212,.12); --text-primary: #f4f7fb;
+  --text-secondary: #bdc9d9; --text-muted: #91a2b8;
+  --radius-card: 8px; --radius-control: 5px;
+}
+.ambient-navy-layer { background: none !important; }
+.main-sidebar, #sidebar-wrapper, .main-navbar, .navbar-bg, .main-sidebar .sidebar-brand {
+  background: #111e30 !important; box-shadow: none !important;
+}
+.main-sidebar, #sidebar-wrapper, .main-navbar, .navbar-bg, .main-sidebar .sidebar-brand,
+.section .section-header, .card, .kpi-card, .balance-dock { border-color: #26384f !important; }
+.main-sidebar .sidebar-menu li a { border-radius: 6px !important; margin: 2px 10px !important; transition: background-color .16s ease,color .16s ease !important; }
+.main-sidebar .sidebar-menu li a:hover { background-color: rgba(57,120,212,.12) !important; }
+.sidebar-logo-icon { background: #2459a9 !important; box-shadow: none !important; }
+.section .section-header, .card, .kpi-card, .balance-dock { box-shadow: 0 3px 12px rgba(0,0,0,.12) !important; }
+.kpi-card { border-radius: 8px !important; }
+.kpi-card:hover, .card:hover { transform: none !important; }
+.balance-pill.balanced, .balance-pill.unbalanced { box-shadow: none !important; animation: none !important; }
+.btn, .form-control, .custom-select, .dropdown-menu, .modal-content { box-shadow: none; }
+.btn { transition: background-color .16s ease,border-color .16s ease,color .16s ease !important; }
+.table thead th { color: #bdc9d9 !important; font-size: .76rem; font-weight: 700 !important; letter-spacing: .035em; text-transform: uppercase; }
+.table tbody tr:hover { background-color: rgba(57,120,212,.06) !important; }
+.main-content { padding-left: 278px; padding-right: 28px; }
+@media(max-width:1024px) { .main-content { padding-left: 24px; padding-right: 24px; } }
+@media(max-width:576px) {
+  .main-content { padding-left: 14px; padding-right: 14px; padding-top: 78px; }
+  .section .section-header { padding: 14px 16px !important; }
+  .kpi-number { font-size: 1.35rem !important; overflow-wrap: anywhere; }
+  .main-footer { padding: 16px !important; gap: 8px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+}
