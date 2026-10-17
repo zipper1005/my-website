@@ -7,7 +7,7 @@ Dashboard Eksekutif &bull; SIA AKN-IPB
 <?= $this->section('content') ?>
 
 <section class="section">
-  <!-- Section 2: Top Greeting Bar with Active User & Date -->
+  <!-- Ringkasan awal dan tindakan utama -->
   <div class="d-flex justify-content-between align-items-center flex-wrap mb-4 pb-2">
     <div>
       <div class="text-secondary font-weight-500 mb-1" style="font-size: 0.95rem;">Selamat Datang,</div>
@@ -49,7 +49,7 @@ Dashboard Eksekutif &bull; SIA AKN-IPB
   </div>
 
   <div class="section-body">
-    <!-- Section 5: Dashboard KPI (4 Main Cards) -->
+    <!-- Ringkasan saldo utama -->
     <div class="row">
       <!-- 1. Total Aset -->
       <div class="col-xl-3 col-md-6 col-12 mb-4">
@@ -60,7 +60,7 @@ Dashboard Eksekutif &bull; SIA AKN-IPB
           </div>
           <div>
             <span class="kpi-indicator indicator-up">
-              <i class="fas fa-arrow-up mr-1"></i> 12% dari bulan lalu
+              <i class="fas fa-wallet mr-1"></i> Saldo aset tercatat
             </span>
           </div>
         </div>
@@ -75,7 +75,7 @@ Dashboard Eksekutif &bull; SIA AKN-IPB
           </div>
           <div>
             <span class="kpi-indicator indicator-up">
-              <i class="fas fa-arrow-up mr-1"></i> 8% dari bulan lalu
+              <i class="fas fa-file-invoice mr-1"></i> Kewajiban tercatat
             </span>
           </div>
         </div>
@@ -90,13 +90,13 @@ Dashboard Eksekutif &bull; SIA AKN-IPB
           </div>
           <div>
             <span class="kpi-indicator indicator-up">
-              <i class="fas fa-arrow-up mr-1"></i> 15% dari bulan lalu
+              <i class="fas fa-balance-scale mr-1"></i> Ekuitas tercatat
             </span>
           </div>
         </div>
       </div>
 
-      <!-- 4. Laba/Rugi Bulan Ini -->
+      <!-- 4. Laba/Rugi Tercatat -->
       <div class="col-xl-3 col-md-6 col-12 mb-4">
         <div class="kpi-card">
           <div class="kpi-label">Laba/Rugi Bulan Ini</div>
@@ -106,7 +106,7 @@ Dashboard Eksekutif &bull; SIA AKN-IPB
           <div>
             <span class="kpi-indicator <?= ($laba_bersih >= 0) ? 'indicator-up' : 'indicator-down' ?>">
               <i class="fas <?= ($laba_bersih >= 0) ? 'fa-arrow-up' : 'fa-arrow-down' ?> mr-1"></i> 
-              <?= ($laba_bersih >= 0) ? '22% dari bulan lalu' : 'Defisit operasional' ?>
+              <?= ($laba_bersih >= 0) ? 'Surplus berdasarkan pencatatan' : 'Defisit berdasarkan pencatatan' ?>
             </span>
           </div>
         </div>
@@ -124,7 +124,7 @@ Dashboard Eksekutif &bull; SIA AKN-IPB
               <small class="text-secondary">Pemasukan, Pengeluaran &amp; Saldo Kas</small>
             </div>
             <div class="d-flex align-items-center">
-              <span class="badge badge-light border font-mono">7 hari terakhir</span>
+              <span class="badge badge-light border font-mono">Berdasarkan data tercatat</span>
               <a href="<?= site_url('aruskas') ?>" class="chart-header-action ml-3 d-none d-sm-inline">
                 Laporan Lengkap &rarr;
               </a>
