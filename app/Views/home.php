@@ -96,7 +96,7 @@ Dashboard Eksekutif &bull; SIA AKN-IPB
         </div>
       </div>
 
-      <!-- 4. Laba/Rugi Bulan Ini -->
+      <!-- 4. Laba/Rugi Tercatat -->
       <div class="col-xl-3 col-md-6 col-12 mb-4">
         <div class="kpi-card">
           <div class="kpi-label">Laba/Rugi Bulan Ini</div>
