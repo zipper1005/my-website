@@ -46,22 +46,22 @@ Detail Transaksi #<?= esc($dttransaksi->kwitansi) ?> &bull; SIA AKN-IPB
       <div class="card-body p-4">
         <div class="row">
           <div class="col-md-6 col-12 mb-3 mb-md-0">
-            <div class="p-3 rounded border" style="background: #081D3A; border-color: var(--border-subtle) !important;">
+            <div class="p-3 rounded border" style="background: var(--paper-50); border-color: var(--line-200) !important;">
               <div class="text-secondary font-mono" style="font-size: 0.75rem;">NOMOR KWITANSI / BUKTI</div>
-              <div class="font-mono font-weight-bold text-white mt-1" style="font-size: 1.1rem;">
+              <div class="font-mono font-weight-bold text-dark mt-1" style="font-size: 1.1rem;">
                 <?= esc($dttransaksi->kwitansi) ?>
               </div>
               <div class="mt-3 text-secondary font-mono" style="font-size: 0.75rem;">TANGGAL TRANSAKSI</div>
-              <div class="font-weight-600 text-white mt-1">
+              <div class="font-weight-600 text-dark mt-1">
                 <i class="far fa-calendar-alt text-primary mr-1"></i> <?= date('d F Y', strtotime($dttransaksi->tanggal)) ?>
               </div>
             </div>
           </div>
 
           <div class="col-md-6 col-12">
-            <div class="p-3 rounded border" style="background: #081D3A; border-color: var(--border-subtle) !important;">
+            <div class="p-3 rounded border" style="background: var(--paper-50); border-color: var(--line-200) !important;">
               <div class="text-secondary font-mono" style="font-size: 0.75rem;">DESKRIPSI OPERASIONAL</div>
-              <div class="text-white mt-1" style="font-size: 0.95rem; line-height: 1.4;">
+              <div class="text-dark mt-1" style="font-size: 0.95rem; line-height: 1.4;">
                 <?= esc($dttransaksi->deskripsi) ?>
               </div>
               <div class="mt-3 text-secondary font-mono" style="font-size: 0.75rem;">MEMO JURNAL UMUM</div>
@@ -113,15 +113,15 @@ Detail Transaksi #<?= esc($dttransaksi->kwitansi) ?> &bull; SIA AKN-IPB
                   <td class="text-center font-mono text-secondary"><?= $key + 1 ?></td>
                   <td class="text-center font-mono text-primary font-weight-bold"><?= esc($value->kode_akun3) ?></td>
                   <td>
-                    <span class="font-weight-600 text-white"><?= esc($value->nama_akun3) ?></span>
+                    <span class="font-weight-600 text-dark"><?= esc($value->nama_akun3) ?></span>
                   </td>
                   <td class="text-center">
                     <span class="badge badge-info font-weight-600"><?= esc($value->status) ?></span>
                   </td>
-                  <td class="text-right font-mono font-weight-bold text-white">
+                  <td class="text-right font-mono font-weight-bold text-dark">
                     <?= $value->debit > 0 ? 'Rp ' . number_format((float)$value->debit, 0, ',', '.') : '-' ?>
                   </td>
-                  <td class="text-right font-mono font-weight-bold text-white">
+                  <td class="text-right font-mono font-weight-bold text-dark">
                     <?= $value->kredit > 0 ? 'Rp ' . number_format((float)$value->kredit, 0, ',', '.') : '-' ?>
                   </td>
                 </tr>
@@ -143,7 +143,7 @@ Detail Transaksi #<?= esc($dttransaksi->kwitansi) ?> &bull; SIA AKN-IPB
         </div>
 
         <!-- Status Keseimbangan Ledger -->
-        <div class="mt-4 p-3 rounded d-flex justify-content-between align-items-center flex-wrap border" style="background: #081D3A; border-color: var(--border-subtle) !important;">
+        <div class="mt-4 p-3 rounded d-flex justify-content-between align-items-center flex-wrap border" style="background: var(--paper-50); border-color: var(--line-200) !important;">
           <div class="d-flex align-items-center">
             <?php if ($totalDebit == $totalKredit && $totalDebit > 0) : ?>
               <span class="balance-pill balanced mr-3">

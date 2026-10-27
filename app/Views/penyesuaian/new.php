@@ -51,7 +51,7 @@ Studio Penyesuaian &bull; SIA AKN-IPB
                 <label>Tanggal Transaksi Penyesuaian <span class="text-danger">*</span></label>
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text font-mono" style="background: #081D3A; border-color: var(--border-subtle); color: var(--text-secondary);">
+                    <span class="input-group-text font-mono" style="background: var(--paper-50); border-color: var(--line-200); color: var(--muted-600);">
                       <i class="far fa-calendar-alt"></i>
                     </span>
                   </div>
@@ -86,7 +86,7 @@ Studio Penyesuaian &bull; SIA AKN-IPB
             <div class="col-md-4 col-12 mb-3">
               <div class="form-group mb-0">
                 <label>Beban / Bulan yang Disesuaikan (Rp)</label>
-                <input type="number" class="form-control font-mono font-weight-bold" name="jumlah" id="jumlah" placeholder="Otomatis dihitung..." readonly required style="background: #081D3A !important; color: #38BDF8 !important;">
+                <input type="number" class="form-control font-mono font-weight-bold" name="jumlah" id="jumlah" placeholder="Otomatis dihitung..." readonly required style="background: var(--mint-100) !important; color: var(--forest-700) !important; border-color: var(--line-200) !important;">
               </div>
             </div>
           </div>

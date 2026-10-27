@@ -1,16 +1,17 @@
-  <li class="menu-header">Menu Utama</li>
+  <!-- 1. KELOMPOK WORKSPACE (PRD v2.0 Bab 4.2) -->
+  <li class="menu-header">WORKSPACE</li>
   
-  <!-- 1. Dashboard -->
+  <!-- Ringkasan / Dashboard -->
   <li class="<?= (uri_string() == '' || uri_string() == '/') ? 'active' : '' ?>">
     <a class="nav-link" href="<?= site_url('/') ?>">
-      <i class="fas fa-th-large"></i> <span>Dashboard</span>
+      <i class="fas fa-chart-pie"></i> <span>Ringkasan</span>
     </a>
   </li>
 
-  <!-- 2. Transaksi -->
+  <!-- Transaksi -->
   <li class="nav-item dropdown <?= in_array(uri_string(), ['transaksi', 'transaksi/new', 'penyesuaian']) ? 'active' : '' ?>">
     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
-      <i class="fas fa-exchange-alt"></i> <span>Transaksi</span>
+      <i class="fas fa-file-invoice-dollar"></i> <span>Transaksi</span>
     </a>
     <ul class="dropdown-menu">
       <li class="<?= uri_string() == 'transaksi' ? 'active' : '' ?>"><a class="nav-link" href="<?= site_url('transaksi') ?>">Daftar Transaksi</a></li>
@@ -19,10 +20,10 @@
     </ul>
   </li>
 
-  <!-- 3. Jurnal -->
+  <!-- Jurnal Umum -->
   <li class="nav-item dropdown <?= in_array(uri_string(), ['jurnalumum', 'jurnalpenyesuaian']) ? 'active' : '' ?>">
     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
-      <i class="fas fa-book"></i> <span>Jurnal</span>
+      <i class="fas fa-book"></i> <span>Jurnal Umum</span>
     </a>
     <ul class="dropdown-menu">
       <li class="<?= uri_string() == 'jurnalumum' ? 'active' : '' ?>"><a class="nav-link" href="<?= site_url('jurnalumum') ?>">Jurnal Umum</a></li>
@@ -30,10 +31,13 @@
     </ul>
   </li>
 
-  <!-- 4. Buku Besar -->
+  <!-- 2. KELOMPOK FINANSIAL (PRD v2.0 Bab 4.2) -->
+  <li class="menu-header">FINANSIAL</li>
+
+  <!-- Buku Besar -->
   <li class="nav-item dropdown <?= in_array(uri_string(), ['posting', 'neracasaldo']) ? 'active' : '' ?>">
     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
-      <i class="fas fa-clipboard-list"></i> <span>Buku Besar</span>
+      <i class="fas fa-layer-group"></i> <span>Buku Besar</span>
     </a>
     <ul class="dropdown-menu">
       <li class="<?= uri_string() == 'posting' ? 'active' : '' ?>"><a class="nav-link" href="<?= site_url('posting') ?>">Posting Buku Besar</a></li>
@@ -41,10 +45,22 @@
     </ul>
   </li>
 
-  <!-- 5. Laporan -->
+  <!-- Daftar Akun (Chart of Accounts) -->
+  <li class="nav-item dropdown <?= in_array(uri_string(), ['akun1', 'akun2', 'akun3']) ? 'active' : '' ?>">
+    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+      <i class="fas fa-list-ol"></i> <span>Daftar Akun</span>
+    </a>
+    <ul class="dropdown-menu">
+      <li class="<?= (strpos(uri_string(), 'akun1') === 0) ? 'active' : '' ?>"><a class="nav-link" href="<?= site_url('akun1') ?>">Akun - 1 (Header)</a></li>
+      <li class="<?= (strpos(uri_string(), 'akun2') === 0) ? 'active' : '' ?>"><a class="nav-link" href="<?= site_url('akun2') ?>">Akun - 2 (Sub Header)</a></li>
+      <li class="<?= (strpos(uri_string(), 'akun3') === 0) ? 'active' : '' ?>"><a class="nav-link" href="<?= site_url('akun3') ?>">Akun - 3 (Buku Besar)</a></li>
+    </ul>
+  </li>
+
+  <!-- Laporan Keuangan -->
   <li class="nav-item dropdown <?= in_array(uri_string(), ['labarugi', 'neraca', 'aruskas', 'perubahanmodal', 'neracalajur']) ? 'active' : '' ?>">
     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
-      <i class="fas fa-chart-line"></i> <span>Laporan</span>
+      <i class="fas fa-file-invoice"></i> <span>Laporan Keuangan</span>
     </a>
     <ul class="dropdown-menu">
       <li class="<?= uri_string() == 'labarugi' ? 'active' : '' ?>"><a class="nav-link" href="<?= site_url('labarugi') ?>">Laporan Laba Rugi</a></li>
@@ -55,25 +71,12 @@
     </ul>
   </li>
 
-  <!-- 6. Master Data -->
-  <li class="menu-header">Master Data</li>
-  <li class="nav-item dropdown <?= in_array(uri_string(), ['akun1', 'akun2', 'akun3']) ? 'active' : '' ?>">
-    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
-      <i class="fas fa-layer-group"></i> <span>Chart of Accounts</span>
-    </a>
-    <ul class="dropdown-menu">
-      <li class="<?= (strpos(uri_string(), 'akun1') === 0) ? 'active' : '' ?>"><a class="nav-link" href="<?= site_url('akun1') ?>">Akun - 1 (Header)</a></li>
-      <li class="<?= (strpos(uri_string(), 'akun2') === 0) ? 'active' : '' ?>"><a class="nav-link" href="<?= site_url('akun2') ?>">Akun - 2 (Sub Header)</a></li>
-      <li class="<?= (strpos(uri_string(), 'akun3') === 0) ? 'active' : '' ?>"><a class="nav-link" href="<?= site_url('akun3') ?>">Akun - 3 (Buku Besar)</a></li>
-    </ul>
-  </li>
-
-  <!-- 7. Pengaturan -->
-  <?php if (in_groups('admin')) : ?>
-  <li class="menu-header">Pengaturan</li>
+  <!-- 3. KELOMPOK PENGELOLAAN (PRD v2.0 Bab 4.2) -->
+  <?php if (function_exists('in_groups') && in_groups('admin')) : ?>
+  <li class="menu-header">PENGELOLAAN</li>
   <li class="<?= (strpos(uri_string(), 'users') === 0) ? 'active' : '' ?>">
     <a class="nav-link" href="<?= site_url('users') ?>">
-      <i class="fas fa-users-cog"></i> <span>Data Pengguna</span>
+      <i class="fas fa-users-cog"></i> <span>Pengguna Sistem</span>
     </a>
   </li>
   <?php endif; ?>

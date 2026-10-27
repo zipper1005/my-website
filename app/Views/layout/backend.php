@@ -30,19 +30,21 @@
     <div class="main-wrapper">
       <div class="navbar-bg"></div>
       
-      <!-- Topbar Header -->
+      <!-- Topbar Header (PRD v2.0 Bab 4.3) -->
       <nav class="navbar navbar-expand-lg main-navbar">
-        <form class="form-inline mr-auto">
-          <ul class="navbar-nav mr-3">
-            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-          </ul>
+        <div class="d-flex align-items-center mr-auto">
+          <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg mr-2" aria-label="Buka/Tutup Navigasi">
+            <i class="fas fa-bars"></i>
+          </a>
           
-          <!-- Search Bar with Shortcut Ctrl K -->
-          <div class="search-element d-none d-md-flex align-items-center">
-            <input class="form-control" type="search" id="globalSearchInput" placeholder="Cari transaksi, akun, atau laporan..." aria-label="Search">
-            <span class="search-shortcut-badge">Ctrl K</span>
+          <div class="topbar-work-area d-none d-sm-flex align-items-center">
+            <span class="topbar-crumb-root font-weight-bold">SIA AKN &bull; IPB</span>
+            <span class="mx-2 text-muted">&bull;</span>
+            <span class="topbar-period-pill font-mono">
+              <i class="far fa-calendar-alt mr-1 text-success"></i> Periode: <b>Desember 2023</b>
+            </span>
           </div>
-        </form>
+        </div>
 
         <ul class="navbar-nav navbar-right align-items-center">
           <!-- Notification Dropdown -->
@@ -146,22 +148,43 @@
       <!-- Sidebar -->
       <div class="main-sidebar">
         <aside id="sidebar-wrapper">
-          <!-- Logo Brand SIA AKN-IPB -->
+          <!-- Logo Brand SIA AKN-IPB (PRD v2.0 Bab 3.1 & 4.2) -->
           <div class="sidebar-brand">
-            <a href="<?= site_url('/') ?>">
+            <a href="<?= site_url('/') ?>" class="d-flex align-items-center">
               <div class="sidebar-logo-icon mr-2">
-                <i class="fas fa-university"></i>
+                <!-- Original Geometric Ledger SVG Logo -->
+                <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SIA Logo">
+                  <rect x="3" y="4" width="4" height="24" rx="1.5" fill="#347657"/>
+                  <rect x="8" y="4" width="21" height="24" rx="2" fill="#245B45"/>
+                  <line x1="12" y1="9" x2="25" y2="9" stroke="#E5F1E9" stroke-width="1.5" stroke-linecap="round"/>
+                  <line x1="19" y1="9" x2="19" y2="23" stroke="#E5F1E9" stroke-width="1.2" stroke-dasharray="2 2"/>
+                  <line x1="12" y1="13.5" x2="17" y2="13.5" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
+                  <line x1="21" y1="13.5" x2="25" y2="13.5" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
+                  <line x1="12" y1="17.5" x2="17" y2="17.5" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
+                  <line x1="21" y1="17.5" x2="25" y2="17.5" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
+                  <line x1="12" y1="21.5" x2="25" y2="21.5" stroke="#E5F1E9" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
               </div>
-              <div class="text-left" style="line-height: 1.15;">
-                <div style="letter-spacing: -0.02em; font-size: 1.02rem; font-weight: 700; color: #FFFFFF;">SIA AKN-IPB</div>
-                <small style="font-size: 9.5px; letter-spacing: 0.5px; color: #85B095; font-family: var(--font-mono);">SEKOLAH VOKASI IPB</small>
+              <div class="sidebar-brand-wordmark text-left">
+                <div class="d-flex align-items-baseline">
+                  <span class="sidebar-brand-main">SIA</span>
+                  <span class="sidebar-brand-inst ml-1">AKN &middot; IPB</span>
+                </div>
+                <div class="sidebar-brand-desc">Sistem Informasi Akuntansi</div>
               </div>
             </a>
           </div>
           
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="<?= site_url('/') ?>">
-              <span class="sidebar-logo-icon" style="margin: 0;">A</span>
+            <a href="<?= site_url('/') ?>" title="SIA AKN-IPB">
+              <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="4" width="4" height="24" rx="1.5" fill="#347657"/>
+                <rect x="8" y="4" width="21" height="24" rx="2" fill="#245B45"/>
+                <line x1="12" y1="10" x2="25" y2="10" stroke="#E5F1E9" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="19" y1="10" x2="19" y2="22" stroke="#E5F1E9" stroke-width="1.2" stroke-dasharray="2 2"/>
+                <line x1="12" y1="16" x2="25" y2="16" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
+                <line x1="12" y1="21" x2="25" y2="21" stroke="#E5F1E9" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
             </a>
           </div>
 
@@ -174,6 +197,19 @@
             <a href="<?= site_url('transaksi/new') ?>" class="sidebar-cta-btn">
               <i class="fas fa-plus mr-1"></i> Buat Transaksi
             </a>
+          </div>
+
+          <!-- Sidebar Footer User Profile (PRD v2.0 Bab 4.2) -->
+          <div class="sidebar-user-footer hide-sidebar-mini">
+            <div class="sidebar-user-card">
+              <div class="sidebar-user-info">
+                <div class="sidebar-user-name" title="<?= $activeDisplayName ?>"><?= $activeDisplayName ?></div>
+                <span class="sidebar-user-role"><?= $userRole ?></span>
+              </div>
+              <a href="<?= site_url('logout') ?>" class="sidebar-logout-link" title="Keluar dari Sistem">
+                <i class="fas fa-sign-out-alt"></i>
+              </a>
+            </div>
           </div>
         </aside>
       </div>

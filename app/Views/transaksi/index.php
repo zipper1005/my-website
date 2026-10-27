@@ -7,21 +7,19 @@ Daftar Transaksi &bull; SIA AKN-IPB
 <?= $this->section('content') ?>
 
 <section class="section">
-  <!-- Top Navigation & Action Bar -->
+  <!-- Top Navigation & Action Bar (PRD v2.0 Bab 5.1 & 6) -->
   <div class="d-flex justify-content-between align-items-center flex-wrap mb-4 pb-2">
     <div>
-      <div class="text-secondary font-weight-500 mb-1" style="font-size: 0.88rem;">
-        <span>Operasional</span>
-        <span class="mx-2">&bull;</span>
-        <span class="text-primary font-mono">Buku Transaksi</span>
+      <div class="text-secondary font-weight-600 mb-1 font-mono" style="font-size: 11px; letter-spacing: 0.8px;">
+        WORKSPACE &bull; TRANSAKSI
       </div>
-      <h2 class="text-white font-weight-bold mb-0" style="letter-spacing: -0.03em; font-size: 1.65rem;">
+      <h2 class="font-weight-bold mb-0" style="color: var(--ink-950); letter-spacing: -0.03em; font-size: 1.65rem;">
         Daftar Voucher Transaksi Keuangan
       </h2>
     </div>
     <div class="mt-3 mt-md-0 d-flex align-items-center flex-wrap">
-      <span class="badge badge-light border font-mono px-3 py-2 mr-2 mb-1">
-        <i class="fas fa-database text-info mr-1"></i> Total: <?= count($dttransaksi ?? []) ?> Transaksi
+      <span class="badge badge-light border font-mono px-3 py-2 mr-2 mb-1" style="font-size: 11.5px;">
+        <i class="fas fa-database text-success mr-1"></i> Total: <b><?= count($dttransaksi ?? []) ?></b> Transaksi
       </span>
       <a href="<?= site_url('transaksi/new') ?>" class="btn btn-primary font-weight-bold mb-1 shadow-sm">
         <i class="fas fa-plus mr-1"></i> Tambah Transaksi
@@ -33,12 +31,12 @@ Daftar Transaksi &bull; SIA AKN-IPB
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <div>
-          <h4 class="mb-0 text-white font-weight-bold">Katalog Voucher Transaksi Terverifikasi</h4>
+          <h4 class="mb-0 font-weight-bold" style="color: var(--ink-950);">Katalog Voucher Transaksi Terverifikasi</h4>
           <small class="text-secondary">Seluruh bukti transaksi terhubung langsung ke Jurnal Umum &amp; Buku Besar</small>
         </div>
         <div class="d-none d-sm-block">
-          <span class="badge badge-light border font-mono text-secondary">
-            <i class="fas fa-filter mr-1"></i> DataTables Filter Ready
+          <span class="badge badge-light border font-mono text-secondary" style="font-size: 11px;">
+            <i class="fas fa-filter mr-1 text-success"></i> Standar SAK EMKM
           </span>
         </div>
       </div>
@@ -69,7 +67,7 @@ Daftar Transaksi &bull; SIA AKN-IPB
                     <?= date('d/m/Y', strtotime($value->tanggal)) ?>
                   </td>
                   <td>
-                    <div class="font-weight-600 text-white" style="line-height: 1.3;">
+                    <div class="font-weight-600 text-dark" style="line-height: 1.3;">
                       <?= esc($value->deskripsi) ?>
                     </div>
                     <?php if (!empty($value->ketjurnal)) : ?>

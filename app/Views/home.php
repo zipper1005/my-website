@@ -7,21 +7,24 @@ Dashboard Akuntansi &bull; SIA AKN-IPB
 <?= $this->section('content') ?>
 
 <section class="section">
-  <!-- Page Header & Reporting Period Context -->
-  <div class="page-header-box">
+  <!-- Page Header & Reporting Period Context (PRD v2.0 Bab 5.1) -->
+  <div class="page-header-box mb-3">
     <div>
-      <h2 class="page-title-main">
-        Dashboard Akuntansi
+      <div class="font-mono text-secondary mb-1" style="font-size: 11px; letter-spacing: 0.8px; font-weight: 700;">
+        WORKSPACE &bull; RINGKASAN
+      </div>
+      <h2 class="page-title-main" style="color: var(--ink-950); font-weight: 800; letter-spacing: -0.03em;">
+        Ringkasan Keuangan
       </h2>
-      <div class="page-subtitle">
-        SIA AKN-IPB &bull; Program Studi Akuntansi Sekolah Vokasi IPB University &bull; Standar SAK EMKM
+      <div class="page-subtitle text-secondary">
+        Ringkasan arus kas, laba rugi, posisi neraca, dan voucher transaksi akuntansi aktif &bull; Standar SAK EMKM.
       </div>
     </div>
     <div class="d-flex align-items-center flex-wrap" style="gap: 10px;">
       <!-- Active Accounting Period Badge -->
       <div class="period-badge">
         <i class="far fa-calendar-alt mr-2 text-success"></i>
-        <span>Periode Pembukuan: <strong><?= esc($periode_formatted ?? 'Desember 2023') ?></strong></span>
+        <span>Periode: <strong><?= esc($periode_formatted ?? 'Desember 2023') ?></strong></span>
       </div>
 
       <!-- Financial Report Export Dropdown -->
@@ -50,8 +53,11 @@ Dashboard Akuntansi &bull; SIA AKN-IPB
         </div>
       </div>
 
-      <!-- Primary Action -->
-      <a href="<?= site_url('transaksi/new') ?>" class="btn btn-primary">
+      <!-- Action Buttons (PRD v2.0 Bab 5.1) -->
+      <a href="<?= site_url('transaksi') ?>" class="btn btn-outline-secondary">
+        <i class="fas fa-list mr-1"></i> Lihat Transaksi
+      </a>
+      <a href="<?= site_url('transaksi/new') ?>" class="btn btn-primary font-weight-bold">
         <i class="fas fa-plus mr-1"></i> Buat Transaksi
       </a>
     </div>
@@ -85,72 +91,72 @@ Dashboard Akuntansi &bull; SIA AKN-IPB
       </div>
     </div>
 
-    <!-- 4 Core Financial KPI Metrics -->
+    <!-- 4 Core Financial KPI Metrics (PRD v2.0 Bab 5.2) -->
     <div class="row">
-      <!-- 1. Total Aset -->
+      <!-- 1. Total Pemasukan -->
       <div class="col-xl-3 col-md-6 col-12 mb-4">
         <div class="kpi-card">
           <div class="kpi-label">
-            <span>Total Aset (Aktiva)</span>
-            <i class="fas fa-landmark text-muted"></i>
+            <span>Total Pemasukan</span>
+            <i class="fas fa-arrow-down text-success"></i>
           </div>
-          <div class="kpi-number">
-            Rp <?= number_format($total_aktiva ?? 0, 0, ',', '.') ?>
+          <div class="kpi-number text-success">
+            Rp <?= number_format($total_pendapatan ?? 0, 0, ',', '.') ?>
           </div>
           <div class="kpi-subdetail">
-            Lancar: <strong>Rp <?= number_format($aktiva_lancar ?? 0, 0, ',', '.') ?></strong> &bull; Tetap: <strong>Rp <?= number_format($aktiva_tetap ?? 0, 0, ',', '.') ?></strong>
+            Total penerimaan pendapatan operasional
           </div>
         </div>
       </div>
 
-      <!-- 2. Total Liabilitas -->
+      <!-- 2. Total Pengeluaran -->
       <div class="col-xl-3 col-md-6 col-12 mb-4">
         <div class="kpi-card">
           <div class="kpi-label">
-            <span>Total Liabilitas (Kewajiban)</span>
-            <i class="fas fa-file-invoice-dollar text-muted"></i>
+            <span>Total Pengeluaran</span>
+            <i class="fas fa-arrow-up text-danger"></i>
           </div>
-          <div class="kpi-number">
-            Rp <?= number_format($total_kewajiban ?? 0, 0, ',', '.') ?>
+          <div class="kpi-number text-danger">
+            Rp <?= number_format($total_beban ?? 0, 0, ',', '.') ?>
           </div>
           <div class="kpi-subdetail">
-            Kewajiban lancar &amp; jangka panjang yang tercatat
+            Total akumulasi beban operasional periode
           </div>
         </div>
       </div>
 
-      <!-- 3. Total Ekuitas -->
+      <!-- 3. Saldo Bersih / Selisih -->
       <div class="col-xl-3 col-md-6 col-12 mb-4">
         <div class="kpi-card">
           <div class="kpi-label">
-            <span>Total Ekuitas (Modal)</span>
-            <i class="fas fa-coins text-muted"></i>
-          </div>
-          <div class="kpi-number">
-            Rp <?= number_format($modal_akhir ?? 0, 0, ',', '.') ?>
-          </div>
-          <div class="kpi-subdetail">
-            Saldo modal akhir pemilik per akhir periode
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. Laba / Rugi Bersih -->
-      <div class="col-xl-3 col-md-6 col-12 mb-4">
-        <div class="kpi-card">
-          <div class="kpi-label">
-            <span>Laba / (Rugi) Bersih</span>
+            <span>Saldo Bersih (Laba/Rugi)</span>
             <?php if (($laba_bersih ?? 0) >= 0) : ?>
-              <span class="kpi-indicator indicator-surplus"><i class="fas fa-arrow-up mr-1"></i> Surplus</span>
+              <span class="kpi-indicator indicator-surplus"><i class="fas fa-check-circle mr-1"></i> Surplus</span>
             <?php else : ?>
-              <span class="kpi-indicator indicator-deficit"><i class="fas fa-arrow-down mr-1"></i> Defisit</span>
+              <span class="kpi-indicator indicator-deficit"><i class="fas fa-exclamation-triangle mr-1"></i> Defisit</span>
             <?php endif; ?>
           </div>
-          <div class="kpi-number" style="color: <?= (($laba_bersih ?? 0) >= 0) ? 'var(--financial-surplus)' : 'var(--financial-deficit)' ?>;">
+          <div class="kpi-number" style="color: <?= (($laba_bersih ?? 0) >= 0) ? 'var(--forest-700)' : 'var(--red-700)' ?>;">
             Rp <?= number_format($laba_bersih ?? 0, 0, ',', '.') ?>
           </div>
           <div class="kpi-subdetail">
-            Pendapatan: <strong>Rp <?= number_format($total_pendapatan ?? 0, 0, ',', '.') ?></strong> &bull; Beban: <strong>Rp <?= number_format($total_beban ?? 0, 0, ',', '.') ?></strong>
+            Selisih bersih pendapatan terhadap beban
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Jumlah Transaksi -->
+      <div class="col-xl-3 col-md-6 col-12 mb-4">
+        <div class="kpi-card">
+          <div class="kpi-label">
+            <span>Jumlah Transaksi</span>
+            <i class="fas fa-file-invoice text-muted"></i>
+          </div>
+          <div class="kpi-number" style="color: var(--ink-950);">
+            <?= number_format($count_transaksi ?? 0, 0, ',', '.') ?> <span style="font-size: 0.85rem; font-weight: 500; color: var(--muted-600);">Voucher</span>
+          </div>
+          <div class="kpi-subdetail">
+            Total voucher jurnal terverifikasi SAK EMKM
           </div>
         </div>
       </div>

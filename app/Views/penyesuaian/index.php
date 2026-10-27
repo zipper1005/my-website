@@ -10,18 +10,16 @@ Daftar Penyesuaian &bull; SIA AKN-IPB
   <!-- Top Navigation & Action Bar -->
   <div class="d-flex justify-content-between align-items-center flex-wrap mb-4 pb-2">
     <div>
-      <div class="text-secondary font-weight-500 mb-1" style="font-size: 0.88rem;">
-        <span>Operasional</span>
-        <span class="mx-2">&bull;</span>
-        <span class="text-primary font-mono">Buku Penyesuaian</span>
+      <div class="text-secondary font-weight-600 mb-1 font-mono" style="font-size: 11px; letter-spacing: 0.8px;">
+        WORKSPACE &bull; PENYESUAIAN
       </div>
-      <h2 class="text-white font-weight-bold mb-0" style="letter-spacing: -0.03em; font-size: 1.65rem;">
+      <h2 class="font-weight-bold mb-0" style="color: var(--ink-950); letter-spacing: -0.03em; font-size: 1.65rem;">
         Daftar Transaksi Penyesuaian (AJP)
       </h2>
     </div>
     <div class="mt-3 mt-md-0 d-flex align-items-center flex-wrap">
-      <span class="badge badge-light border font-mono px-3 py-2 mr-2 mb-1">
-        <i class="fas fa-calculator text-warning mr-1"></i> Total: <?= count($dtpenyesuaian ?? []) ?> Penyesuaian
+      <span class="badge badge-light border font-mono px-3 py-2 mr-2 mb-1" style="font-size: 11.5px;">
+        <i class="fas fa-calculator text-success mr-1"></i> Total: <b><?= count($dtpenyesuaian ?? []) ?></b> Penyesuaian
       </span>
       <a href="<?= site_url('penyesuaian/new') ?>" class="btn btn-primary font-weight-bold mb-1 shadow-sm">
         <i class="fas fa-plus mr-1"></i> Buat Penyesuaian
@@ -33,7 +31,7 @@ Daftar Penyesuaian &bull; SIA AKN-IPB
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <div>
-          <h4 class="mb-0 text-white font-weight-bold">Katalog Penyesuaian &amp; Amortisasi Periode</h4>
+          <h4 class="mb-0 font-weight-bold" style="color: var(--ink-950);">Katalog Penyesuaian &amp; Amortisasi Periode</h4>
           <small class="text-secondary">Pencatatan akrual dan amortisasi beban/pendapatan terjadwal</small>
         </div>
         <div class="d-none d-sm-block">
@@ -63,9 +61,9 @@ Daftar Penyesuaian &bull; SIA AKN-IPB
                   <td class="text-center font-mono text-secondary"><?= $key + 1 ?></td>
                   <td class="text-center font-mono text-secondary"><?= date('d/m/Y', strtotime($value->tanggal)) ?></td>
                   <td>
-                    <div class="font-weight-600 text-white"><?= esc($value->deskripsi) ?></div>
+                    <div class="font-weight-600 text-dark"><?= esc($value->deskripsi) ?></div>
                   </td>
-                  <td class="text-right font-mono font-weight-bold text-white">
+                  <td class="text-right font-mono font-weight-bold text-dark">
                     Rp <?= number_format((float)$value->nilai, 0, ',', '.') ?>
                   </td>
                   <td class="text-center font-mono">

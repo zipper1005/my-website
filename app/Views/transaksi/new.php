@@ -56,7 +56,7 @@ Studio Voucher Transaksi &bull; SIA AKN-IPB
                 </label>
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text font-mono" style="background: #081D3A; border-color: var(--border-subtle); color: var(--text-secondary);">
+                    <span class="input-group-text font-mono" style="background: var(--paper-50); border-color: var(--line-200); color: var(--muted-600);">
                       <i class="fas fa-receipt"></i>
                     </span>
                   </div>
@@ -70,7 +70,7 @@ Studio Voucher Transaksi &bull; SIA AKN-IPB
                 <label>Tanggal Pembukuan <span class="text-danger">*</span></label>
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text font-mono" style="background: #081D3A; border-color: var(--border-subtle); color: var(--text-secondary);">
+                    <span class="input-group-text font-mono" style="background: var(--paper-50); border-color: var(--line-200); color: var(--muted-600);">
                       <i class="far fa-calendar-alt"></i>
                     </span>
                   </div>
@@ -130,11 +130,11 @@ Studio Voucher Transaksi &bull; SIA AKN-IPB
           </div>
 
           <!-- Alert jika terjadi selisih -->
-          <div id="balanceWarningAlert" class="alert alert-danger mt-3 mb-0" style="display: none; background-color: #350B15; border-color: #F43F5E; color: #FF7B90;">
+          <div id="balanceWarningAlert" class="alert alert-danger mt-3 mb-0" style="display: none; background-color: var(--red-100); border-color: var(--red-700); color: var(--red-700);">
             <div class="d-flex align-items-center">
               <i class="fas fa-exclamation-triangle fa-2x mr-3 text-danger"></i>
               <div>
-                <strong class="text-white">Perhatian: Entri Jurnal Belum Seimbang!</strong>
+                <strong style="color: var(--red-700);">Perhatian: Entri Jurnal Belum Seimbang!</strong>
                 <div class="small">Total nominal Debit harus sama persis dengan total nominal Kredit sebelum transaksi dapat disimpan ke buku besar.</div>
               </div>
             </div>
@@ -148,13 +148,13 @@ Studio Voucher Transaksi &bull; SIA AKN-IPB
           <!-- Total Debit -->
           <div class="mr-4">
             <small class="text-secondary font-mono d-block" style="font-size: 11px;">TOTAL DEBIT</small>
-            <span class="font-mono font-weight-bold text-white" id="liveDebitTotal" style="font-size: 1.15rem;">Rp 0</span>
+            <span class="font-mono font-weight-bold text-dark" id="liveDebitTotal" style="font-size: 1.15rem;">Rp 0</span>
           </div>
 
           <!-- Total Kredit -->
           <div class="mr-4">
             <small class="text-secondary font-mono d-block" style="font-size: 11px;">TOTAL KREDIT</small>
-            <span class="font-mono font-weight-bold text-white" id="liveKreditTotal" style="font-size: 1.15rem;">Rp 0</span>
+            <span class="font-mono font-weight-bold text-dark" id="liveKreditTotal" style="font-size: 1.15rem;">Rp 0</span>
           </div>
 
           <!-- Selisih -->
