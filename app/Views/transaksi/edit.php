@@ -17,7 +17,7 @@ Edit Voucher Transaksi &bull; SIA AKN-IPB
         <span class="mx-2">&bull;</span>
         <span class="text-primary font-mono">Edit Voucher #<?= esc($dttransaksi->kwitansi) ?></span>
       </div>
-      <h2 class="text-white font-weight-bold mb-0" style="letter-spacing: -0.03em; font-size: 1.65rem;">
+      <h2 class="font-weight-bold" style="color: var(--color-ink); mb-0" style="letter-spacing: -0.03em; font-size: 1.65rem;">
         Koreksi Voucher Transaksi Jurnal
       </h2>
     </div>
@@ -40,7 +40,7 @@ Edit Voucher Transaksi &bull; SIA AKN-IPB
       <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
           <div>
-            <h4 class="mb-0 text-white font-weight-bold">1. Dokumen Sumber &amp; Informasi Header</h4>
+            <h4 class="mb-0 font-weight-bold" style="color: var(--color-ink);">1. Dokumen Sumber &amp; Informasi Header</h4>
             <small class="text-secondary">Identifikasi bukti pembukuan dan tanggal pengakuan</small>
           </div>
           <span class="badge badge-primary font-mono">BAGIAN 1 / 2</span>
@@ -99,7 +99,7 @@ Edit Voucher Transaksi &bull; SIA AKN-IPB
       <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
           <div>
-            <h4 class="mb-0 text-white font-weight-bold">2. Matriks Akun Debit &amp; Kredit</h4>
+            <h4 class="mb-0 font-weight-bold" style="color: var(--color-ink);">2. Matriks Akun Debit &amp; Kredit</h4>
             <small class="text-secondary">Pilih minimal 2 akun berpasangan untuk menjaga prinsip double-entry</small>
           </div>
           <button type="button" class="btn btn-outline-primary btn-sm font-weight-bold" id="barisBaru">

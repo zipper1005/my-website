@@ -7,8 +7,11 @@ Neraca Lajur (Worksheet)
 <?= $this->section('content') ?>
 
 <section class="section">
-  <div class="section-header">
-    <h1>Neraca Lajur (Worksheet 10 Kolom)</h1>
+  <div class="page-header-box">
+    <div>
+      <h1 class="page-title-main">Neraca Lajur 10 Kolom</h1>
+      <p class="page-subtitle">Kertas kerja penyusunan laporan keuangan: Neraca Saldo, Penyesuaian, NSD, Laba Rugi, dan Neraca SAK EMKM</p>
+    </div>
   </div>
 
   <div class="section-body">
@@ -30,12 +33,8 @@ Neraca Lajur (Worksheet)
               </div>
             </div>
             <div class="col-md-6 mt-3 mt-md-0">
-              <button type="submit" class="btn btn-primary mr-2">
-                <i class="fas fa-filter"></i> Tampilkan
-              </button>
-              <button type="submit" formaction="<?= site_url('neracalajur/cetaklajurpdf') ?>" formtarget="_blank" class="btn btn-danger">
-                <i class="fas fa-file-pdf"></i> Cetak PDF
-              </button>
+              <button type="submit" class="btn btn-primary btn-sm px-3 mr-2 font-weight-bold shadow-sm"><i class="fas fa-filter mr-1"></i> Tampilkan</button>
+              <button type="submit" formaction="<?= site_url('neracalajur/cetaklajurpdf') ?>" formtarget="_blank" class="btn btn-outline-danger btn-sm px-3"><i class="fas fa-file-pdf mr-1"></i> Unduh PDF</button>
             </div>
           </div>
         </form>
@@ -53,7 +52,7 @@ Neraca Lajur (Worksheet)
       <div class="card-body p-3">
         <div class="table-responsive">
           <table class="table table-bordered table-striped table-hover table-sm">
-            <thead class="bg-light text-center">
+            <thead style="background: var(--color-surface-muted);" class="text-center">
               <tr>
                 <th rowspan="2" class="align-middle" style="width: 3%;">No</th>
                 <th rowspan="2" class="align-middle" style="width: 8%;">Kode Akun</th>

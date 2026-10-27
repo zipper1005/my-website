@@ -8,184 +8,193 @@
   <!-- Google Fonts: Plus Jakarta Sans & IBM Plex Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="<?= base_url() ?>/template/node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>/template/node_modules/@fortawesome/fontawesome-free/css/all.css">
 
-  <!-- Template CSS -->
+  <!-- Template & Custom CSS -->
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/style.css">
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/components.css">
   <link rel="stylesheet" href="<?= base_url() ?>/template/assets/css/custom.css">
 
   <style>
-    :root {
-      --ink-950: #14251F;
-      --ink-800: #263D34;
-      --forest-700: #245B45;
-      --forest-600: #347657;
-      --mint-100: #E5F1E9;
-      --paper-50: #F7F8F4;
-      --surface-0: #FFFFFF;
-      --line-200: #E1E6DF;
-      --muted-600: #69776F;
-    }
-
     body, html {
-      background-color: var(--paper-50) !important;
-      color: var(--ink-950) !important;
-      font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+      background-color: var(--color-canvas) !important;
+      color: var(--color-ink) !important;
+      font-family: var(--font-sans) !important;
       margin: 0;
       padding: 0;
       min-height: 100vh;
+      overflow-x: hidden;
+      width: 100%;
     }
 
     .auth-split-wrapper {
       min-height: 100vh;
       display: flex;
       width: 100%;
+      overflow-x: hidden;
     }
 
-    /* Left Showcase Panel: Dark Academic Ink */
+    /* Left Showcase Panel: 42% Desktop, Deep Ink (PRD v3 Section 4) */
     .auth-showcase-panel {
-      flex: 1 1 54%;
-      background-color: var(--ink-950);
-      position: relative;
+      flex: 0 0 42%;
+      background-color: #172923;
+      color: #FFFFFF;
+      padding: 56px 48px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 56px 64px;
-      overflow: hidden;
       border-right: 1px solid rgba(255, 255, 255, 0.08);
-      color: #FFFFFF;
+      position: relative;
     }
 
-    .auth-brand-badge {
-      display: inline-flex;
+    .auth-showcase-brand {
+      display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .auth-hero-eyebrow {
+    .auth-brand-wordmark-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      line-height: 1.1;
+    }
+
+    .auth-brand-wordmark-inst {
       font-family: var(--font-mono);
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      color: var(--color-primary-soft);
       text-transform: uppercase;
-      color: var(--mint-100);
-      background: rgba(36, 91, 69, 0.45);
-      border: 1px solid rgba(229, 241, 233, 0.2);
-      padding: 4px 10px;
-      border-radius: var(--radius-badge);
-      display: inline-block;
-      margin-bottom: 16px;
+      margin-left: 6px;
     }
 
-    .auth-hero-title {
-      font-size: 2.1rem;
-      font-weight: 800;
+    .auth-brand-wordmark-desc {
+      font-size: 10px;
+      color: #8E9C94;
+    }
+
+    .auth-showcase-main {
+      margin: auto 0;
+      max-width: 460px;
+    }
+
+    .auth-showcase-title {
+      font-size: 28px;
+      font-weight: 700;
       letter-spacing: -0.03em;
       line-height: 1.25;
       color: #FFFFFF;
       margin-bottom: 14px;
     }
 
-    .auth-hero-desc {
-      font-size: 14.5px;
+    .auth-showcase-desc {
+      font-size: 14px;
       line-height: 1.6;
       color: #CAD5CE;
-      max-width: 540px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
-    /* Clean Ledger Preview Window */
-    .auth-ledger-card {
-      background: #192D26;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
-      overflow: hidden;
-      margin: 16px 0 24px 0;
-      max-width: 580px;
-    }
-
-    .auth-ledger-header {
-      background: #11201B;
-      padding: 10px 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    /* Subtle abstract vector ledger graphic (PRD v3 Section 4) */
+    .auth-ledger-graphic {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px;
       color: #9FB2A7;
     }
 
-    .auth-ledger-body {
-      padding: 16px 18px;
-    }
-
-    .auth-ledger-row {
+    .auth-ledger-graphic-row {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 8px 0;
+      padding: 6px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 13px;
     }
 
-    .auth-ledger-row:last-child {
+    .auth-ledger-graphic-row:last-child {
       border-bottom: none;
     }
 
     .auth-showcase-footer {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
       font-size: 12px;
-      color: #9FB2A7;
+      color: #7E9086;
+      padding-top: 16px;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 20px;
     }
 
-    /* Right Auth Form Panel: Clean Paper & Surface-0 */
+    /* Right Form Panel: 58% Clean Canvas */
     .auth-form-panel {
-      flex: 1 1 46%;
-      background-color: var(--paper-50);
+      flex: 1 1 58%;
+      background-color: var(--color-canvas);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 48px 32px;
-      position: relative;
+      padding: 32px 16px;
+      width: 100%;
     }
 
     .auth-form-container {
       width: 100%;
-      max-width: 440px;
+      max-width: 380px;
+      margin: 0 auto;
     }
 
     .auth-form-card {
-      background: var(--surface-0);
-      border: 1px solid var(--line-200);
-      border-radius: var(--radius-panel);
-      padding: 36px 32px;
-      box-shadow: var(--shadow-card);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 28px 22px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    @media (max-width: 992px) {
+    .auth-form-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--color-text-secondary);
+    }
+
+    @media (max-width: 991px) {
       .auth-split-wrapper {
-        flex-direction: column;
+        flex-direction: column !important;
+        display: block !important;
+        width: 100% !important;
       }
       .auth-showcase-panel {
         display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        padding: 0 !important;
       }
       .auth-form-panel {
-        flex: 1 1 100%;
-        min-height: 100vh;
-        padding: 32px 20px;
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: 100vh !important;
+        padding: 40px 16px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+      }
+      .auth-form-container {
+        width: 100% !important;
+        max-width: 350px !important;
+        margin: 0 auto !important;
+      }
+      .auth-form-card {
+        width: 100% !important;
+        padding: 26px 20px !important;
       }
     }
   </style>
@@ -196,105 +205,81 @@
 <body>
   <div class="auth-split-wrapper">
     
-    <!-- LEFT PANEL: Academic Ledger Editorial Showcase -->
+    <!-- LEFT PANEL: Restrained Academic Showcase (PRD v3 Section 4) -->
     <div class="auth-showcase-panel d-none d-lg-flex">
       
-      <!-- Top Brand Header -->
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="auth-brand-badge">
-          <!-- Geometric Ledger SVG Logo -->
-          <svg width="34" height="34" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SIA Logo">
-            <rect x="3" y="4" width="4" height="24" rx="1.5" fill="#347657"/>
-            <rect x="8" y="4" width="21" height="24" rx="2" fill="#245B45"/>
-            <line x1="12" y1="9" x2="25" y2="9" stroke="#E5F1E9" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="19" y1="9" x2="19" y2="23" stroke="#E5F1E9" stroke-width="1.2" stroke-dasharray="2 2"/>
-            <line x1="12" y1="13.5" x2="17" y2="13.5" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="21" y1="13.5" x2="25" y2="13.5" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="12" y1="17.5" x2="17" y2="17.5" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="21" y1="17.5" x2="25" y2="17.5" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="12" y1="21.5" x2="25" y2="21.5" stroke="#E5F1E9" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          <div>
-            <div class="d-flex align-items-baseline">
-              <span style="font-weight: 800; font-size: 18px; letter-spacing: -0.02em; color: #FFFFFF;">SIA</span>
-              <span class="ml-1" style="font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.8px; color: var(--mint-100); text-transform: uppercase;">AKN &middot; IPB</span>
-            </div>
-            <div style="font-size: 9.5px; color: #9FB2A7;">Sistem Informasi Akuntansi</div>
+      <!-- Brand Lockup -->
+      <div class="auth-showcase-brand">
+        <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SIA Logo">
+          <rect x="3" y="4" width="4" height="24" rx="1.5" fill="#347657"/>
+          <rect x="8" y="4" width="21" height="24" rx="2" fill="#245B45"/>
+          <line x1="12" y1="9" x2="25" y2="9" stroke="#E7F0EA" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="19" y1="9" x2="19" y2="23" stroke="#E7F0EA" stroke-width="1.2" stroke-dasharray="2 2"/>
+          <line x1="12" y1="14" x2="17" y2="14" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="21" y1="14" x2="25" y2="14" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="12" y1="18" x2="17" y2="18" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="21" y1="18" x2="25" y2="18" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="12" y1="22" x2="25" y2="22" stroke="#E7F0EA" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div class="d-flex align-items-baseline">
+            <span class="auth-brand-wordmark-title">SIA</span>
+            <span class="auth-brand-wordmark-inst">AKN &middot; IPB</span>
           </div>
-        </div>
-
-        <div class="d-flex align-items-center">
-          <span class="badge badge-light border font-mono px-3 py-1" style="font-size: 11px;">
-            <i class="fas fa-book-open mr-1 text-success"></i> STANDAR SAK EMKM
-          </span>
+          <div class="auth-brand-wordmark-desc">Sistem Informasi Akuntansi</div>
         </div>
       </div>
 
-      <!-- Main Value Proposition -->
-      <div class="my-4">
-        <span class="auth-hero-eyebrow">
-          <i class="fas fa-layer-group mr-1"></i> ACADEMIC LEDGER WORKSPACE
-        </span>
-        <h1 class="auth-hero-title">
-          Sistem Informasi Akuntansi Presisi untuk Akademik &amp; Keuangan.
+      <!-- Concise Headline & Description -->
+      <div class="auth-showcase-main">
+        <h1 class="auth-showcase-title">
+          Sistem Informasi Akuntansi Presisi.
         </h1>
-        <p class="auth-hero-desc">
-          Pencatatan voucher transaksi berpasangan, buku besar otomatis, neraca lajur 10 kolom, serta laporan laba rugi dan posisi keuangan secara akurat dan terverifikasi.
+        <p class="auth-showcase-desc">
+          Workspace pembukuan, buku besar otomatis, neraca lajur 10 kolom, dan pelaporan keuangan standar SAK EMKM Sekolah Vokasi IPB.
         </p>
 
-        <!-- Ledger Summary Preview Box -->
-        <div class="auth-ledger-card">
-          <div class="auth-ledger-header">
-            <span><i class="fas fa-check-circle text-success mr-1"></i> STATUS SIKLUS: SEIMBANG</span>
-            <span class="badge badge-success font-mono" style="font-size: 10px; padding: 2px 7px;">SAK EMKM</span>
+        <!-- Subtle abstract vector ledger graphic -->
+        <div class="auth-ledger-graphic">
+          <div class="auth-ledger-graphic-row">
+            <span>Jurnal Umum &bull; Siklus Akuntansi</span>
+            <span class="text-white">SAK EMKM</span>
           </div>
-          <div class="auth-ledger-body">
-            <div class="auth-ledger-row">
-              <span class="text-white font-weight-500">1. Jurnal Umum &amp; Entri Voucher</span>
-              <span class="font-mono text-success font-weight-600">Terverifikasi Seimbang</span>
-            </div>
-            <div class="auth-ledger-row">
-              <span class="text-white font-weight-500">2. Neraca Saldo &amp; Penyesuaian</span>
-              <span class="font-mono text-white font-weight-600">Otomatis Terposting</span>
-            </div>
-            <div class="auth-ledger-row">
-              <span class="text-white font-weight-500">3. Neraca Lajur 10 Kolom</span>
-              <span class="font-mono text-white font-weight-600">Siap Ekspor PDF</span>
-            </div>
+          <div class="auth-ledger-graphic-row">
+            <span>Neraca Saldo &amp; Penyesuaian</span>
+            <span class="text-white">Terposting</span>
+          </div>
+          <div class="auth-ledger-graphic-row">
+            <span>Kertas Kerja 10 Kolom</span>
+            <span class="text-white">Valid</span>
           </div>
         </div>
       </div>
 
-      <!-- Bottom Feature Footer -->
+      <!-- Footer -->
       <div class="auth-showcase-footer">
-        <div><i class="fas fa-shield-alt text-success mr-1"></i> Autentikasi Terenkripsi</div>
-        <div>&bull;</div>
-        <div><i class="fas fa-globe text-success mr-1"></i> siarajib.free.nf</div>
-        <div>&bull;</div>
-        <div>Sekolah Vokasi IPB University</div>
+        Program Studi Akuntansi &bull; Sekolah Vokasi IPB University
       </div>
     </div>
 
-    <!-- RIGHT PANEL: Authentication Form -->
+    <!-- RIGHT PANEL: Authentication Form (PRD v3 Section 4) -->
     <div class="auth-form-panel">
       <div class="auth-form-container">
         
-        <!-- Mobile Logo Header (Visible only on < lg) -->
+        <!-- Mobile Brand Lockup (visible on < lg only) -->
         <div class="d-lg-none text-center mb-4">
-          <div class="d-inline-flex align-items-center mb-2">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
+          <div class="d-inline-flex align-items-center mb-1">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
               <rect x="3" y="4" width="4" height="24" rx="1.5" fill="#347657"/>
               <rect x="8" y="4" width="21" height="24" rx="2" fill="#245B45"/>
-              <line x1="12" y1="9" x2="25" y2="9" stroke="#E5F1E9" stroke-width="1.5" stroke-linecap="round"/>
-              <line x1="19" y1="9" x2="19" y2="23" stroke="#E5F1E9" stroke-width="1.2" stroke-dasharray="2 2"/>
-              <line x1="12" y1="15" x2="25" y2="15" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
-              <line x1="12" y1="21" x2="25" y2="21" stroke="#E5F1E9" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="12" y1="9" x2="25" y2="9" stroke="#E7F0EA" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="19" y1="9" x2="19" y2="23" stroke="#E7F0EA" stroke-width="1.2" stroke-dasharray="2 2"/>
+              <line x1="12" y1="16" x2="25" y2="16" stroke="#A7C7B7" stroke-width="1.2" stroke-linecap="round"/>
+              <line x1="12" y1="21" x2="25" y2="21" stroke="#E7F0EA" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
-            <div class="text-left">
-              <div class="font-weight-800" style="font-size: 1.1rem; color: var(--ink-950);">SIA AKN &middot; IPB</div>
-              <small class="text-muted font-mono" style="font-size: 9px;">SISTEM INFORMASI AKUNTANSI</small>
-            </div>
+            <span style="font-weight: 800; font-size: 16px; color: var(--color-ink);">SIA AKN &middot; IPB</span>
           </div>
+          <div style="font-size: 11px; color: var(--color-text-secondary);">Sistem Informasi Akuntansi</div>
         </div>
 
         <!-- Form Card -->
@@ -302,14 +287,9 @@
           <?= $this->renderSection('main') ?>
         </div>
 
-        <!-- Security & Copyright Footer -->
-        <div class="text-center mt-4">
-          <div class="d-flex justify-content-center align-items-center mb-1 font-mono text-muted" style="font-size: 11px;">
-            <i class="fas fa-lock mr-1 text-success"></i> Sesi Aman &bull; Standar SAK EMKM
-          </div>
-          <small class="text-muted font-mono" style="font-size: 11px;">
-            SIA AKN-IPB &bull; Sekolah Vokasi IPB University &copy; <?= date('Y') ?>
-          </small>
+        <!-- Footer -->
+        <div class="auth-form-footer">
+          SIA AKN-IPB &bull; Sekolah Vokasi IPB University &copy; <?= date('Y') ?>
         </div>
 
       </div>
@@ -317,28 +297,25 @@
 
   </div>
 
-  <!-- General JS Scripts -->
+  <!-- Scripts -->
   <script src="<?= base_url() ?>/template/node_modules/jquery/dist/jquery.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/popper.js/dist/umd/popper.min.js"></script>
   <script src="<?= base_url() ?>/template/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="<?= base_url() ?>/template/assets/js/scripts.js"></script>
-
-  <!-- Password Visibility Toggle Script -->
+  
   <script>
+    // Password Visibility Toggle
     document.addEventListener('DOMContentLoaded', function() {
-      const btnToggle = document.getElementById('btnTogglePassword');
-      const inputPass = document.getElementById('password');
-      const iconPass = document.getElementById('togglePasswordIcon');
-      if (btnToggle && inputPass && iconPass) {
-        btnToggle.addEventListener('click', function() {
-          if (inputPass.type === 'password') {
-            inputPass.type = 'text';
-            iconPass.classList.remove('fa-eye');
-            iconPass.classList.add('fa-eye-slash');
+      const btn = document.getElementById('btnTogglePassword');
+      const input = document.getElementById('password');
+      const icon = document.getElementById('toggleIcon');
+      if (btn && input && icon) {
+        btn.addEventListener('click', function() {
+          if (input.type === 'password') {
+            input.type = 'text';
+            icon.className = 'fas fa-eye-slash';
           } else {
-            inputPass.type = 'password';
-            iconPass.classList.remove('fa-eye-slash');
-            iconPass.classList.add('fa-eye');
+            input.type = 'password';
+            icon.className = 'fas fa-eye';
           }
         });
       }

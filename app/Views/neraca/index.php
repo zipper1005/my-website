@@ -45,7 +45,7 @@ Laporan Neraca &bull; SIA AKN-IPB
     <!-- Tampilan Laporan Neraca (Bentuk Skontro / 2 Kolom atau Stafel) -->
     <div class="card">
       <div class="card-header text-center d-block py-3">
-        <h4 class="mb-1 text-white font-weight-bold" style="letter-spacing: -0.02em;">SIA AKN-IPB</h4>
+        <h4 class="mb-1 font-weight-bold" style="color: var(--color-ink);" style="letter-spacing: -0.02em;">SIA AKN-IPB</h4>
         <h5 class="mb-1 text-primary font-weight-bold font-mono">LAPORAN NERACA (BALANCE SHEET)</h5>
         <small class="text-secondary font-mono">
           Per <?= (!empty($tgl_akhir)) ? date('d F Y', strtotime($tgl_akhir)) : date('d F Y') ?>
@@ -70,7 +70,7 @@ Laporan Neraca &bull; SIA AKN-IPB
                     <?php foreach ($data_neraca['aktiva_lancar'] as $al) : ?>
                       <tr>
                         <td><?= esc($al->nama_akun3) ?></td>
-                        <td class="text-right font-mono text-white"><?= number_format($al->nominal, 0, ',', '.') ?></td>
+                        <td class="text-right font-mono" style="color: var(--color-ink);"><?= number_format($al->nominal, 0, ',', '.') ?></td>
                       </tr>
                     <?php endforeach; ?>
                   <?php endif; ?>
@@ -86,7 +86,7 @@ Laporan Neraca &bull; SIA AKN-IPB
                     <?php foreach ($data_neraca['aktiva_tetap'] as $at) : ?>
                       <tr>
                         <td><?= esc($at->nama_akun3) ?></td>
-                        <td class="text-right font-mono text-white"><?= number_format($at->nominal, 0, ',', '.') ?></td>
+                        <td class="text-right font-mono" style="color: var(--color-ink);"><?= number_format($at->nominal, 0, ',', '.') ?></td>
                       </tr>
                     <?php endforeach; ?>
                   <?php endif; ?>
@@ -123,7 +123,7 @@ Laporan Neraca &bull; SIA AKN-IPB
                     <?php foreach ($data_neraca['kewajiban_pendek'] as $kp) : ?>
                       <tr>
                         <td><?= esc($kp->nama_akun3) ?></td>
-                        <td class="text-right font-mono text-white"><?= number_format($kp->nominal, 0, ',', '.') ?></td>
+                        <td class="text-right font-mono" style="color: var(--color-ink);"><?= number_format($kp->nominal, 0, ',', '.') ?></td>
                       </tr>
                     <?php endforeach; ?>
                   <?php else : ?>
@@ -139,7 +139,7 @@ Laporan Neraca &bull; SIA AKN-IPB
                     <?php foreach ($data_neraca['kewajiban_panjang'] as $kpj) : ?>
                       <tr>
                         <td><?= esc($kpj->nama_akun3) ?></td>
-                        <td class="text-right font-mono text-white"><?= number_format($kpj->nominal, 0, ',', '.') ?></td>
+                        <td class="text-right font-mono" style="color: var(--color-ink);"><?= number_format($kpj->nominal, 0, ',', '.') ?></td>
                       </tr>
                     <?php endforeach; ?>
                   <?php endif; ?>
@@ -154,7 +154,7 @@ Laporan Neraca &bull; SIA AKN-IPB
                   </tr>
                   <tr>
                     <td>Modal Akhir Pemilik</td>
-                    <td class="text-right font-mono text-white"><?= number_format($data_neraca['modal_akhir'], 0, ',', '.') ?></td>
+                    <td class="text-right font-mono" style="color: var(--color-ink);"><?= number_format($data_neraca['modal_akhir'], 0, ',', '.') ?></td>
                   </tr>
                   <tr class="font-weight-bold">
                     <td class="text-right">Total Ekuitas</td>

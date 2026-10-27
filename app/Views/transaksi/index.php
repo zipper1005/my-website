@@ -7,21 +7,17 @@ Daftar Transaksi &bull; SIA AKN-IPB
 <?= $this->section('content') ?>
 
 <section class="section">
-  <!-- Top Navigation & Action Bar (PRD v2.0 Bab 5.1 & 6) -->
-  <div class="d-flex justify-content-between align-items-center flex-wrap mb-4 pb-2">
+  <!-- Top Navigation & Action Bar (PRD v3) -->
+  <div class="page-header-box">
     <div>
-      <div class="text-secondary font-weight-600 mb-1 font-mono" style="font-size: 11px; letter-spacing: 0.8px;">
-        WORKSPACE &bull; TRANSAKSI
-      </div>
-      <h2 class="font-weight-bold mb-0" style="color: var(--ink-950); letter-spacing: -0.03em; font-size: 1.65rem;">
-        Daftar Voucher Transaksi Keuangan
-      </h2>
+      <h1 class="page-title-main">Daftar Voucher Transaksi</h1>
+      <p class="page-subtitle">Seluruh bukti transaksi kas masuk, kas keluar, dan mutasi terverifikasi SAK EMKM</p>
     </div>
-    <div class="mt-3 mt-md-0 d-flex align-items-center flex-wrap">
-      <span class="badge badge-light border font-mono px-3 py-2 mr-2 mb-1" style="font-size: 11.5px;">
+    <div class="page-actions-group">
+      <span class="badge badge-light border font-mono px-3 py-2" style="font-size: 11.5px;">
         <i class="fas fa-database text-success mr-1"></i> Total: <b><?= count($dttransaksi ?? []) ?></b> Transaksi
       </span>
-      <a href="<?= site_url('transaksi/new') ?>" class="btn btn-primary font-weight-bold mb-1 shadow-sm">
+      <a href="<?= site_url('transaksi/new') ?>" class="btn btn-primary btn-sm font-weight-bold shadow-sm">
         <i class="fas fa-plus mr-1"></i> Tambah Transaksi
       </a>
     </div>
@@ -31,26 +27,26 @@ Daftar Transaksi &bull; SIA AKN-IPB
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <div>
-          <h4 class="mb-0 font-weight-bold" style="color: var(--ink-950);">Katalog Voucher Transaksi Terverifikasi</h4>
+          <h4 class="mb-0 font-weight-bold" style="color: var(--color-ink);">Katalog Voucher Transaksi Terverifikasi</h4>
           <small class="text-secondary">Seluruh bukti transaksi terhubung langsung ke Jurnal Umum &amp; Buku Besar</small>
         </div>
         <div class="d-none d-sm-block">
           <span class="badge badge-light border font-mono text-secondary" style="font-size: 11px;">
-            <i class="fas fa-filter mr-1 text-success"></i> Standar SAK EMKM
+            <i class="fas fa-shield-alt mr-1 text-success"></i> Standar SAK EMKM
           </span>
         </div>
       </div>
       <div class="card-body p-4">
         <div class="table-responsive">
           <table class="table table-hover table-bordered table-md" id="myTable">
-            <thead>
+            <thead style="background: var(--color-surface-muted);">
               <tr>
                 <th class="text-center" style="width: 50px;">No</th>
                 <th style="width: 140px;">No. Kwitansi</th>
                 <th style="width: 120px;" class="text-center">Tanggal</th>
                 <th>Deskripsi &amp; Memo Transaksi</th>
                 <th style="width: 130px;" class="text-center">Status</th>
-                <th class="text-center" style="width: 180px;">Aksi</th>
+                <th class="text-center" style="width: 160px;">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -59,8 +55,8 @@ Daftar Transaksi &bull; SIA AKN-IPB
                 <tr>
                   <td class="text-center font-mono text-secondary"><?= $key + 1 ?></td>
                   <td>
-                    <span class="badge badge-primary font-mono font-weight-bold">
-                      <i class="fas fa-receipt mr-1"></i> <?= esc($value->kwitansi) ?>
+                    <span class="badge font-mono font-weight-bold" style="background: var(--color-surface-muted); color: var(--color-ink); border: 1px solid var(--color-border); font-size: 11px;">
+                      <i class="fas fa-receipt mr-1 text-success"></i> <?= esc($value->kwitansi) ?>
                     </span>
                   </td>
                   <td class="text-center font-mono text-secondary">
@@ -77,22 +73,22 @@ Daftar Transaksi &bull; SIA AKN-IPB
                     <?php endif; ?>
                   </td>
                   <td class="text-center">
-                    <span class="badge badge-success font-weight-600">
+                    <span class="health-badge badge-pass">
                       <i class="fas fa-check-circle mr-1" style="font-size: 10px;"></i> Terverifikasi
                     </span>
                   </td>
                   <td class="text-center">
-                    <a href="<?= site_url('transaksi/' . $value->id_transaksi) ?>" class="btn btn-outline-info btn-sm mr-1" title="Lihat Detail Transaksi">
-                      <i class="fas fa-eye"></i>
+                    <a href="<?= site_url('transaksi/' . $value->id_transaksi) ?>" class="btn btn-outline-secondary btn-sm py-1 px-2 mr-1" title="Lihat Detail Transaksi">
+                      <i class="fas fa-eye text-primary"></i>
                     </a>
-                    <a href="<?= site_url('transaksi/' . $value->id_transaksi . '/edit') ?>" class="btn btn-outline-warning btn-sm mr-1" title="Koreksi / Edit Voucher">
-                      <i class="fas fa-pencil-alt"></i>
+                    <a href="<?= site_url('transaksi/' . $value->id_transaksi . '/edit') ?>" class="btn btn-outline-secondary btn-sm py-1 px-2 mr-1" title="Koreksi / Edit Voucher">
+                      <i class="fas fa-pencil-alt text-warning"></i>
                     </a>
                     <form action="<?= site_url('transaksi/' . $value->id_transaksi) ?>" method="post" id="del-<?= $value->id_transaksi ?>" class="d-inline">
                       <?= csrf_field() ?>
                       <input type="hidden" name="_method" value="DELETE">
-                      <button type="button" class="btn btn-outline-danger btn-sm" onclick="hapus('<?= $value->id_transaksi ?>')" title="Hapus Transaksi">
-                        <i class="fas fa-trash"></i>
+                      <button type="button" class="btn btn-outline-secondary btn-sm py-1 px-2" onclick="hapus('<?= $value->id_transaksi ?>')" title="Hapus Transaksi">
+                        <i class="fas fa-trash text-danger"></i>
                       </button>
                     </form>
                   </td>

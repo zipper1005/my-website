@@ -17,7 +17,7 @@ Studio Penyesuaian &bull; SIA AKN-IPB
         <span class="mx-2">&bull;</span>
         <span class="text-primary font-mono">Amortisasi &amp; Akrual Studio</span>
       </div>
-      <h2 class="text-white font-weight-bold mb-0" style="letter-spacing: -0.03em; font-size: 1.65rem;">
+      <h2 class="font-weight-bold" style="color: var(--color-ink); mb-0" style="letter-spacing: -0.03em; font-size: 1.65rem;">
         Entri Jurnal Penyesuaian (AJP)
       </h2>
     </div>
@@ -39,7 +39,7 @@ Studio Penyesuaian &bull; SIA AKN-IPB
       <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
           <div>
-            <h4 class="mb-0 text-white font-weight-bold">1. Parameter Alokasi &amp; Amortisasi Nilai</h4>
+            <h4 class="mb-0 font-weight-bold" style="color: var(--color-ink);">1. Parameter Alokasi &amp; Amortisasi Nilai</h4>
             <small class="text-secondary">Hitung pembagian beban atau pendapatan per bulan secara proporsional</small>
           </div>
           <span class="badge badge-primary font-mono">BAGIAN 1 / 2</span>
@@ -97,7 +97,7 @@ Studio Penyesuaian &bull; SIA AKN-IPB
       <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
           <div>
-            <h4 class="mb-0 text-white font-weight-bold">2. Pasangan Akun Buku Besar Penyesuaian</h4>
+            <h4 class="mb-0 font-weight-bold" style="color: var(--color-ink);">2. Pasangan Akun Buku Besar Penyesuaian</h4>
             <small class="text-secondary">Pilih akun beban/pendapatan yang didebet/dikreditkan</small>
           </div>
           <button type="button" class="btn btn-outline-primary btn-sm font-weight-bold" id="barisBaru">
@@ -128,7 +128,7 @@ Studio Penyesuaian &bull; SIA AKN-IPB
             <div class="d-flex align-items-center">
               <i class="fas fa-exclamation-triangle fa-2x mr-3 text-danger"></i>
               <div>
-                <strong class="text-white">Perhatian: Jurnal Penyesuaian Belum Seimbang!</strong>
+                <strong style="color: var(--color-ink);">Perhatian: Jurnal Penyesuaian Belum Seimbang!</strong>
                 <div class="small">Total nominal Debit harus sama dengan Kredit agar tidak merusak neraca saldo disesuaikan.</div>
               </div>
             </div>
@@ -141,11 +141,11 @@ Studio Penyesuaian &bull; SIA AKN-IPB
         <div class="d-flex align-items-center flex-wrap mr-3 my-1">
           <div class="mr-4">
             <small class="text-secondary font-mono d-block" style="font-size: 11px;">TOTAL DEBIT</small>
-            <span class="font-mono font-weight-bold text-white" id="liveDebitTotal" style="font-size: 1.15rem;">Rp 0</span>
+            <span class="font-mono font-weight-bold" style="color: var(--color-ink);" id="liveDebitTotal" style="font-size: 1.15rem;">Rp 0</span>
           </div>
           <div class="mr-4">
             <small class="text-secondary font-mono d-block" style="font-size: 11px;">TOTAL KREDIT</small>
-            <span class="font-mono font-weight-bold text-white" id="liveKreditTotal" style="font-size: 1.15rem;">Rp 0</span>
+            <span class="font-mono font-weight-bold" style="color: var(--color-ink);" id="liveKreditTotal" style="font-size: 1.15rem;">Rp 0</span>
           </div>
           <div class="mr-4">
             <small class="text-secondary font-mono d-block" style="font-size: 11px;">SELISIH (DELTA)</small>

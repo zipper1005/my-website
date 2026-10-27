@@ -17,7 +17,7 @@ Detail Transaksi #<?= esc($dttransaksi->kwitansi) ?> &bull; SIA AKN-IPB
         <span class="mx-2">&bull;</span>
         <span class="text-primary font-mono">Voucher Audit Trail</span>
       </div>
-      <h2 class="text-white font-weight-bold mb-0" style="letter-spacing: -0.03em; font-size: 1.65rem;">
+      <h2 class="font-weight-bold" style="color: var(--color-ink); mb-0" style="letter-spacing: -0.03em; font-size: 1.65rem;">
         Detail Voucher #<?= esc($dttransaksi->kwitansi) ?>
       </h2>
     </div>
@@ -36,7 +36,7 @@ Detail Transaksi #<?= esc($dttransaksi->kwitansi) ?> &bull; SIA AKN-IPB
     <div class="card mb-4">
       <div class="card-header d-flex justify-content-between align-items-center">
         <div>
-          <h4 class="mb-0 text-white font-weight-bold">Informasi Bukti Transaksi</h4>
+          <h4 class="mb-0 font-weight-bold" style="color: var(--color-ink);">Informasi Bukti Transaksi</h4>
           <small class="text-secondary">Dokumen sumber pencatatan buku besar</small>
         </div>
         <span class="badge badge-primary font-mono">
@@ -78,7 +78,7 @@ Detail Transaksi #<?= esc($dttransaksi->kwitansi) ?> &bull; SIA AKN-IPB
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <div>
-          <h4 class="mb-0 text-white font-weight-bold">Rincian Pasangan Akun Buku Besar (Jurnal)</h4>
+          <h4 class="mb-0 font-weight-bold" style="color: var(--color-ink);">Rincian Pasangan Akun Buku Besar (Jurnal)</h4>
           <small class="text-secondary">Daftar mutasi akun yang terpengaruh oleh voucher ini</small>
         </div>
         <span class="badge badge-light border font-mono">

@@ -45,7 +45,7 @@ Laporan Laba Rugi &bull; SIA AKN-IPB
     <!-- Tampilan Laporan Laba Rugi -->
     <div class="card">
       <div class="card-header text-center d-block py-3">
-        <h4 class="mb-1 text-white font-weight-bold" style="letter-spacing: -0.02em;">SIA AKN-IPB</h4>
+        <h4 class="mb-1 font-weight-bold" style="color: var(--color-ink);" style="letter-spacing: -0.02em;">SIA AKN-IPB</h4>
         <h5 class="mb-1 text-primary font-weight-bold font-mono">LAPORAN LABA RUGI (INCOME STATEMENT)</h5>
         <small class="text-secondary font-mono">
           Periode: <?= (!empty($tgl_awal) && !empty($tgl_akhir)) ? date('d F Y', strtotime($tgl_awal)) . ' s/d ' . date('d F Y', strtotime($tgl_akhir)) : 'Semua Periode' ?>
@@ -65,7 +65,7 @@ Laporan Laba Rugi &bull; SIA AKN-IPB
                   <tr>
                     <td style="width: 15%;" class="text-center font-mono"><?= esc($p->kode_akun3) ?></td>
                     <td><?= esc($p->nama_akun3) ?></td>
-                    <td class="text-right font-mono font-weight-bold text-white"><?= number_format($p->nominal, 0, ',', '.') ?></td>
+                    <td class="text-right font-mono font-weight-bold" style="color: var(--color-ink);"><?= number_format($p->nominal, 0, ',', '.') ?></td>
                   </tr>
                 <?php endforeach; ?>
               <?php else : ?>
@@ -90,7 +90,7 @@ Laporan Laba Rugi &bull; SIA AKN-IPB
                   <tr>
                     <td class="text-center font-mono"><?= esc($b->kode_akun3) ?></td>
                     <td><?= esc($b->nama_akun3) ?></td>
-                    <td class="text-right font-mono font-weight-bold text-white"><?= number_format($b->nominal, 0, ',', '.') ?></td>
+                    <td class="text-right font-mono font-weight-bold" style="color: var(--color-ink);"><?= number_format($b->nominal, 0, ',', '.') ?></td>
                   </tr>
                 <?php endforeach; ?>
               <?php else : ?>
