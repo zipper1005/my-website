@@ -250,7 +250,7 @@ Dashboard Akuntansi &bull; SIA AKN-IPB
                     <th>Keterangan Transaksi</th>
                     <th style="width: 140px;">Kategori Akun</th>
                     <th class="text-right" style="width: 130px;">Nominal</th>
-                    <th class="text-center" style="width: 90px;">Status</th>
+                    <th class="text-center" style="width: 110px;">Status / Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -261,9 +261,9 @@ Dashboard Akuntansi &bull; SIA AKN-IPB
                           <?= date('d/m/Y', strtotime($tr->tanggal)) ?>
                         </td>
                         <td>
-                          <span class="badge badge-light border font-mono font-weight-bold text-dark">
+                          <a href="<?= site_url('transaksi/' . $tr->id_transaksi) ?>" class="badge badge-light border font-mono font-weight-bold text-dark" title="Buka rincian voucher <?= esc($tr->kwitansi) ?>">
                             <?= esc($tr->kwitansi ?? '-') ?>
-                          </span>
+                          </a>
                         </td>
                         <td>
                           <div class="font-weight-600" style="color: var(--text-primary); font-size: 0.88rem; line-height: 1.35;">
@@ -283,10 +283,10 @@ Dashboard Akuntansi &bull; SIA AKN-IPB
                         <td class="text-right font-mono font-weight-bold" style="white-space: nowrap; color: var(--brand-forest); font-size: 0.88rem;">
                           Rp <?= number_format((float)($tr->total_nominal ?? 0), 0, ',', '.') ?>
                         </td>
-                        <td class="text-center">
-                          <span class="badge badge-success">
-                            <i class="fas fa-check mr-1" style="font-size: 9px;"></i> Tercatat
-                          </span>
+                        <td class="text-center" style="white-space: nowrap;">
+                          <a href="<?= site_url('transaksi/' . $tr->id_transaksi) ?>" class="badge badge-success" title="Lihat detail voucher jurnal">
+                            <i class="fas fa-check mr-1" style="font-size: 9px;"></i> Rincian &rarr;
+                          </a>
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -394,10 +394,10 @@ Dashboard Akuntansi &bull; SIA AKN-IPB
           {
             label: 'Penerimaan Kas',
             data: revData,
-            borderColor: '#143D2B',
-            backgroundColor: 'rgba(20, 61, 43, 0.08)',
+            borderColor: '#243D32',
+            backgroundColor: 'rgba(36, 61, 50, 0.08)',
             borderWidth: 2.2,
-            pointBackgroundColor: '#143D2B',
+            pointBackgroundColor: '#243D32',
             pointBorderColor: '#FFFFFF',
             pointRadius: 3.5,
             pointHoverRadius: 5.5,
@@ -407,10 +407,10 @@ Dashboard Akuntansi &bull; SIA AKN-IPB
           {
             label: 'Pengeluaran / Beban',
             data: expData,
-            borderColor: '#B91C1C',
-            backgroundColor: 'rgba(185, 28, 28, 0.05)',
+            borderColor: '#B33A3A',
+            backgroundColor: 'rgba(179, 58, 58, 0.06)',
             borderWidth: 2.2,
-            pointBackgroundColor: '#B91C1C',
+            pointBackgroundColor: '#B33A3A',
             pointBorderColor: '#FFFFFF',
             pointRadius: 3.5,
             pointHoverRadius: 5.5,
@@ -420,10 +420,10 @@ Dashboard Akuntansi &bull; SIA AKN-IPB
           {
             label: 'Posisi Saldo Kas',
             data: saldoData,
-            borderColor: '#4D7C5D',
+            borderColor: '#47765A',
             backgroundColor: 'transparent',
             borderWidth: 2.2,
-            pointBackgroundColor: '#4D7C5D',
+            pointBackgroundColor: '#47765A',
             pointBorderColor: '#FFFFFF',
             pointRadius: 3.5,
             pointHoverRadius: 5.5,
@@ -439,7 +439,7 @@ Dashboard Akuntansi &bull; SIA AKN-IPB
         legend: {
           position: 'top',
           labels: {
-            fontColor: '#4B5563',
+            fontColor: '#68716A',
             fontFamily: "'Plus Jakarta Sans', sans-serif",
             fontSize: 12,
             usePointStyle: true,
@@ -449,24 +449,24 @@ Dashboard Akuntansi &bull; SIA AKN-IPB
         scales: {
           xAxes: [{
             gridLines: {
-              color: '#F1F5F9',
-              zeroLineColor: '#E2E8F0',
+              color: '#ECECE5',
+              zeroLineColor: '#E2E5DE',
               drawBorder: false
             },
             ticks: {
-              fontColor: '#6B7280',
+              fontColor: '#68716A',
               fontFamily: "'JetBrains Mono', monospace",
               fontSize: 11
             }
           }],
           yAxes: [{
             gridLines: {
-              color: '#F1F5F9',
-              zeroLineColor: '#E2E8F0',
+              color: '#ECECE5',
+              zeroLineColor: '#E2E5DE',
               drawBorder: false
             },
             ticks: {
-              fontColor: '#6B7280',
+              fontColor: '#68716A',
               fontFamily: "'JetBrains Mono', monospace",
               fontSize: 11,
               callback: function(value) {
@@ -483,12 +483,12 @@ Dashboard Akuntansi &bull; SIA AKN-IPB
           }]
         },
         tooltips: {
-          backgroundColor: '#0F2D1F',
+          backgroundColor: '#14241D',
           titleFontColor: '#FFFFFF',
           titleFontFamily: "'Plus Jakarta Sans', sans-serif",
-          bodyFontColor: '#D1E3D7',
+          bodyFontColor: '#CAD5CE',
           bodyFontFamily: "'JetBrains Mono', monospace",
-          borderColor: '#256346',
+          borderColor: '#365C4C',
           borderWidth: 1,
           xPadding: 12,
           yPadding: 10,
@@ -517,13 +517,14 @@ Dashboard Akuntansi &bull; SIA AKN-IPB
         datasets: [{
           data: bebanValues,
           backgroundColor: [
-            '#143D2B',
-            '#2D6A4F',
-            '#40916C',
-            '#52B788',
-            '#74C69D',
-            '#A7C4B5',
-            '#C59B27'
+            '#243D32',
+            '#365C4C',
+            '#47765A',
+            '#5E9274',
+            '#7BAE92',
+            '#A3CBB6',
+            '#B4690E',
+            '#8C9B90'
           ],
           borderColor: '#FFFFFF',
           borderWidth: 2
@@ -537,11 +538,11 @@ Dashboard Akuntansi &bull; SIA AKN-IPB
           display: false
         },
         tooltips: {
-          backgroundColor: '#0F2D1F',
+          backgroundColor: '#14241D',
           titleFontColor: '#FFFFFF',
-          bodyFontColor: '#D1E3D7',
+          bodyFontColor: '#CAD5CE',
           bodyFontFamily: "'JetBrains Mono', monospace",
-          borderColor: '#256346',
+          borderColor: '#365C4C',
           borderWidth: 1,
           xPadding: 12,
           yPadding: 10,
