@@ -26,14 +26,11 @@
 </head>
 
 <body>
-  <!-- Ambient Gradient Background -->
-  <div class="ambient-navy-layer"></div>
-
   <div id="app">
     <div class="main-wrapper">
       <div class="navbar-bg"></div>
       
-      <!-- Slim Top Header (Section 4) -->
+      <!-- Topbar Header -->
       <nav class="navbar navbar-expand-lg main-navbar">
         <form class="form-inline mr-auto">
           <ul class="navbar-nav mr-3">
@@ -48,7 +45,7 @@
         </form>
 
         <ul class="navbar-nav navbar-right align-items-center">
-          <!-- Notification Bell -->
+          <!-- Notification Dropdown -->
           <li class="dropdown dropdown-list-toggle">
             <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep">
               <i class="far fa-bell"></i>
@@ -57,7 +54,7 @@
               <div class="dropdown-header">
                 Notifikasi Sistem
                 <div class="float-right">
-                  <a href="#">Tandai Dibaca</a>
+                  <a href="#" class="text-secondary" style="font-size: 11px;">Tandai Dibaca</a>
                 </div>
               </div>
               <div class="dropdown-list-content dropdown-list-icons">
@@ -66,69 +63,76 @@
                     <i class="fas fa-check-circle"></i>
                   </div>
                   <div class="dropdown-item-desc">
-                    Posting Buku Besar Terverifikasi Seimbang
-                    <div class="time text-primary">Baru saja</div>
+                    <b>Posting Buku Besar</b> mutasi saldo terverifikasi seimbang
+                    <div class="time text-muted">Berdasarkan data jurnal</div>
                   </div>
                 </a>
                 <a href="<?= site_url('neracalajur') ?>" class="dropdown-item">
-                  <div class="dropdown-item-icon bg-info text-white">
+                  <div class="dropdown-item-icon bg-primary text-white">
                     <i class="fas fa-table"></i>
                   </div>
                   <div class="dropdown-item-desc">
-                    Neraca Lajur 10 Kolom siap diekspor
-                    <div class="time">Hari ini</div>
+                    <b>Neraca Lajur 10 Kolom</b> siap diekspor ke PDF
+                    <div class="time text-muted">Standar SAK EMKM</div>
                   </div>
                 </a>
                 <a href="<?= site_url('labarugi') ?>" class="dropdown-item">
-                  <div class="dropdown-item-icon bg-primary text-white">
+                  <div class="dropdown-item-icon bg-info text-white">
                     <i class="fas fa-chart-line"></i>
                   </div>
                   <div class="dropdown-item-desc">
-                    Laporan Laba Rugi periode berjalan terupdate
-                    <div class="time">Kemarin</div>
+                    <b>Laporan Laba Rugi</b> perhitungan pendapatan &amp; beban
+                    <div class="time text-muted">Periode pembukuan</div>
                   </div>
                 </a>
               </div>
               <div class="dropdown-footer text-center">
-                <a href="<?= site_url('transaksi') ?>">Lihat Semua Transaksi <i class="fas fa-chevron-right"></i></a>
+                <a href="<?= site_url('transaksi') ?>">Lihat Seluruh Transaksi <i class="fas fa-chevron-right ml-1"></i></a>
               </div>
             </div>
           </li>
 
-          <!-- Telemetry Quick Button -->
+          <!-- Audit Trail Quick Modal Button -->
           <li class="d-none d-lg-inline-block mr-2">
-            <button type="button" class="btn btn-outline-secondary btn-sm font-mono" data-toggle="modal" data-target="#siaTelemetryModal" title="Sistem Audit & Telemetri Real-Time">
-              <span class="sia-pulse-dot mr-1"></span>
-              <i class="fas fa-shield-alt mr-1 text-primary"></i> Audit Trail
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#siaAuditModal" title="Audit Trail & Status Sistem">
+              <i class="fas fa-shield-alt mr-1 text-success"></i> Status Pembukuan
             </button>
           </li>
 
-          <!-- User Profile Dropdown (Section 4: User Profile & Role Admin) -->
+          <!-- User Profile Dropdown -->
           <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user d-flex align-items-center">
-              <img alt="User Avatar" src="<?= base_url() ?>/template/assets/img/avatar/avatar-1.png" class="rounded-circle mr-2" style="width: 34px; height: 34px; border: 1px solid var(--border-accent);">
+              <img alt="User Avatar" src="<?= base_url() ?>/template/assets/img/avatar/avatar-1.png" class="rounded-circle mr-2" style="width: 32px; height: 32px; border: 1px solid var(--border-medium);">
               <div class="d-none d-lg-inline-block text-left" style="line-height: 1.2;">
                 <?php 
                   $activeUsername = user()->username ?? 'admin';
-                  $activeName = ($activeUsername === 'mrajibprasetya' || (logged_in() && user()->id == 4)) ? 'Muhamad Rajib Prasetya' : (logged_in() ? esc($activeUsername) : 'Muhamad Rajib Prasetya');
+                  $userRole = (function_exists('in_groups') && in_groups('admin')) ? 'Administrator' : 'Staf Akuntansi';
+                  if ($activeUsername === 'mrajibprasetya' || (logged_in() && user()->id == 4)) {
+                    $activeDisplayName = 'Muhamad Rajib Prasetya';
+                  } elseif ($activeUsername === 'admin') {
+                    $activeDisplayName = 'Administrator';
+                  } else {
+                    $activeDisplayName = esc($activeUsername);
+                  }
                 ?>
-                <div class="font-weight-600 text-white" style="font-size: 0.88rem;"><?= $activeName ?></div>
-                <small class="text-secondary font-mono" style="font-size: 11px;">
-                  <i class="fas fa-circle text-success mr-1" style="font-size: 7px;"></i> Admin
-                </small>
+                <div class="font-weight-600" style="font-size: 0.88rem; color: var(--text-primary);"><?= $activeDisplayName ?></div>
+                <div class="user-role-badge mt-1"><?= $userRole ?></div>
               </div>
             </a>
-            <div class="dropdown-menu dropdown-menu-right shadow-lg">
+            <div class="dropdown-menu dropdown-menu-right">
               <div class="dropdown-title">
-                Masuk sebagai <b><?= $activeName ?></b>
+                Masuk sebagai <b><?= $activeDisplayName ?></b>
               </div>
-              <?php if (in_groups('admin')) : ?>
+              <?php if (function_exists('in_groups') && in_groups('admin')) : ?>
                 <a href="<?= site_url('users') ?>" class="dropdown-item has-icon">
                   <i class="fas fa-users-cog"></i> Kelola Pengguna
                 </a>
               <?php endif; ?>
               <a href="<?= site_url('neracalajur') ?>" class="dropdown-item has-icon">
-                <i class="fas fa-table"></i> Neraca Lajur
+                <i class="fas fa-table"></i> Neraca Lajur 10 Kolom
+              </a>
+              <a href="<?= site_url('posting') ?>" class="dropdown-item has-icon">
+                <i class="fas fa-clipboard-list"></i> Posting Buku Besar
               </a>
               <div class="dropdown-divider"></div>
               <a href="<?= site_url('logout') ?>" class="dropdown-item has-icon text-danger">
@@ -139,23 +143,18 @@
         </ul>
       </nav>
 
-      <!-- Sidebar (Section 3 & 14 Logo) -->
+      <!-- Sidebar -->
       <div class="main-sidebar">
         <aside id="sidebar-wrapper">
-          <!-- Logo Brand SIA AKN-IPB (Letter A + Ledger) -->
+          <!-- Logo Brand SIA AKN-IPB -->
           <div class="sidebar-brand">
-            <a href="<?= site_url('/') ?>" class="d-flex align-items-center">
+            <a href="<?= site_url('/') ?>">
               <div class="sidebar-logo-icon mr-2">
-                <svg width="24" height="24" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10 27L18 9L26 27" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M13 21H23" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
-                  <rect x="25" y="16" width="3.5" height="11" rx="1.75" fill="#4FA3FF" />
-                  <rect x="30" y="11" width="3.5" height="16" rx="1.75" fill="#20C997" />
-                </svg>
+                <i class="fas fa-university"></i>
               </div>
               <div class="text-left" style="line-height: 1.15;">
-                <div class="font-weight-bold text-white" style="letter-spacing: -0.02em; font-size: 1.05rem;">SIA AKN-IPB</div>
-                <small class="text-secondary font-mono" style="font-size: 10px; letter-spacing: 0.5px;">SEKOLAH VOKASI IPB</small>
+                <div style="letter-spacing: -0.02em; font-size: 1.02rem; font-weight: 700; color: #FFFFFF;">SIA AKN-IPB</div>
+                <small style="font-size: 9.5px; letter-spacing: 0.5px; color: #85B095; font-family: var(--font-mono);">SEKOLAH VOKASI IPB</small>
               </div>
             </a>
           </div>
@@ -171,8 +170,8 @@
             <?= $this->include("layout/menu") ?>
           </ul>
 
-          <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-            <a href="<?= site_url('transaksi/new') ?>" class="btn btn-primary btn-block font-weight-bold shadow-sm">
+          <div class="sidebar-cta-box hide-sidebar-mini">
+            <a href="<?= site_url('transaksi/new') ?>" class="sidebar-cta-btn">
               <i class="fas fa-plus mr-1"></i> Buat Transaksi
             </a>
           </div>
@@ -191,9 +190,9 @@
         </div>
         <div class="mt-1 mt-sm-0 d-flex align-items-center">
           <span class="badge badge-light border font-mono mr-2">
-            <i class="fas fa-globe text-primary mr-1"></i> siarajib.software
+            <i class="fas fa-globe text-success mr-1"></i> siarajib.free.nf
           </span>
-          <span class="badge badge-light border font-mono">SAK EMKM STANDARD</span>
+          <span class="badge badge-light border font-mono">STANDAR SAK EMKM</span>
         </div>
       </footer>
     </div>
@@ -215,7 +214,6 @@
   <!-- Template JS File -->
   <script src="<?= base_url() ?>/template/assets/js/stisla.js"></script>
   <script src="<?= base_url() ?>/template/assets/js/scripts.js"></script>
-  <script src="<?= base_url() ?>/template/assets/js/custom.js"></script>
 
   <!-- Global Keyboard Shortcut (Ctrl K / Cmd K) for Search Focus -->
   <script>
@@ -259,99 +257,97 @@
     });
   </script>
 
-  <!-- SIA Live Audit & Telemetry Inspection Modal -->
-  <div class="modal fade" id="siaTelemetryModal" tabindex="-1" role="dialog" aria-labelledby="siaTelemetryLabel" aria-hidden="true">
+  <!-- Status Pembukuan & Audit Modal -->
+  <div class="modal fade" id="siaAuditModal" tabindex="-1" role="dialog" aria-labelledby="siaAuditLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-      <div class="modal-content border">
+      <div class="modal-content">
         <div class="modal-header d-flex justify-content-between align-items-center">
           <div>
-            <span class="badge badge-primary font-mono mb-1">
-              <span class="sia-pulse-dot mr-1"></span> LIVE AUDIT ENGINE
-            </span>
-            <h5 class="modal-title font-weight-bold text-white mb-0" id="siaTelemetryLabel">
-              SIA AKN-IPB &mdash; Audit Trail &amp; Verification
+            <h5 class="modal-title font-weight-bold" id="siaAuditLabel" style="color: var(--brand-forest);">
+              <i class="fas fa-shield-alt mr-2 text-success"></i> Status Pembukuan &amp; Audit Sistem
             </h5>
+            <small class="text-secondary">SIA AKN-IPB &bull; Sistem Informasi Akuntansi Terpadu</small>
           </div>
-          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body p-4">
           <div class="row mb-4">
             <div class="col-md-4 col-12 mb-3 mb-md-0">
-              <div class="p-3 rounded border" style="background: #081D3A; border-color: var(--border-subtle) !important;">
-                <div class="text-secondary font-mono" style="font-size: 0.72rem;">CORE ENGINE</div>
-                <div class="font-weight-bold text-white mt-1" style="font-size: 1rem;">
-                  <i class="fab fa-php text-primary mr-1"></i> PHP <?= phpversion() ?>
+              <div class="p-3 rounded border bg-light">
+                <div class="text-secondary font-mono" style="font-size: 0.72rem;">PLATFORM ENGINE</div>
+                <div class="font-weight-bold mt-1" style="font-size: 0.95rem; color: var(--brand-forest);">
+                  <i class="fab fa-php mr-1"></i> PHP <?= phpversion() ?>
                 </div>
-                <small class="text-secondary font-mono">CodeIgniter 4 &bull; MySQL</small>
+                <small class="text-muted font-mono">CodeIgniter 4 &bull; MySQL</small>
               </div>
             </div>
             <div class="col-md-4 col-12 mb-3 mb-md-0">
-              <div class="p-3 rounded border" style="background: #081D3A; border-color: var(--border-subtle) !important;">
-                <div class="text-secondary font-mono" style="font-size: 0.72rem;">STATUS SESI</div>
-                <div class="font-weight-bold text-success mt-1" style="font-size: 1rem;">
-                  <i class="fas fa-shield-alt mr-1"></i> <?= logged_in() ? 'Authenticated' : 'Guest' ?>
+              <div class="p-3 rounded border bg-light">
+                <div class="text-secondary font-mono" style="font-size: 0.72rem;">STATUS AUTENTIKASI</div>
+                <div class="font-weight-bold text-success mt-1" style="font-size: 0.95rem;">
+                  <i class="fas fa-user-check mr-1"></i> <?= logged_in() ? 'Terverifikasi' : 'Tamu' ?>
                 </div>
-                <small class="text-secondary font-mono"><?= logged_in() ? esc(user()->username) : 'Guest' ?></small>
+                <small class="text-muted font-mono"><?= logged_in() ? esc(user()->username) : 'Guest' ?></small>
               </div>
             </div>
             <div class="col-md-4 col-12">
-              <div class="p-3 rounded border" style="background: #081D3A; border-color: var(--border-subtle) !important;">
-                <div class="text-secondary font-mono" style="font-size: 0.72rem;">STANDAR AKUNTANSI</div>
-                <div class="font-weight-bold text-info mt-1" style="font-size: 1rem;">
-                  <i class="fas fa-balance-scale mr-1"></i> SAK EMKM
+              <div class="p-3 rounded border bg-light">
+                <div class="text-secondary font-mono" style="font-size: 0.72rem;">STANDAR LAPORAN</div>
+                <div class="font-weight-bold text-primary mt-1" style="font-size: 0.95rem;">
+                  <i class="fas fa-book mr-1"></i> SAK EMKM
                 </div>
-                <small class="text-secondary font-mono">Neraca Lajur 10 Kolom</small>
+                <small class="text-muted font-mono">Neraca Lajur 10 Kolom</small>
               </div>
             </div>
           </div>
 
-          <h6 class="font-weight-bold text-white font-mono mb-2" style="font-size: 0.82rem; letter-spacing: 0.5px;">
-            <i class="fas fa-bolt text-warning mr-1"></i> AUDIT SHORTCUTS
+          <h6 class="font-weight-bold font-mono mb-2" style="font-size: 0.82rem; letter-spacing: 0.5px; color: var(--text-secondary);">
+            <i class="fas fa-link mr-1"></i> PINTASAN LAPORAN KEUANGAN
           </h6>
           <div class="row">
             <div class="col-md-6 col-12 mb-2">
-              <a href="<?= site_url('neracalajur') ?>" class="p-3 rounded border d-flex justify-content-between align-items-center text-decoration-none" style="background: #06162E; border-color: var(--border-subtle) !important; color: #fff;">
+              <a href="<?= site_url('neracalajur') ?>" class="p-3 rounded border d-flex justify-content-between align-items-center text-decoration-none bg-white">
                 <div>
-                  <div class="font-weight-bold font-mono">1. Neraca Lajur (Worksheet)</div>
+                  <div class="font-weight-bold font-mono text-dark">1. Neraca Lajur (Worksheet)</div>
                   <small class="text-secondary">Verifikasi 10 kolom debit-kredit</small>
                 </div>
-                <i class="fas fa-external-link-alt text-primary"></i>
+                <i class="fas fa-external-link-alt text-muted"></i>
               </a>
             </div>
             <div class="col-md-6 col-12 mb-2">
-              <a href="<?= site_url('posting') ?>" class="p-3 rounded border d-flex justify-content-between align-items-center text-decoration-none" style="background: #06162E; border-color: var(--border-subtle) !important; color: #fff;">
+              <a href="<?= site_url('posting') ?>" class="p-3 rounded border d-flex justify-content-between align-items-center text-decoration-none bg-white">
                 <div>
-                  <div class="font-weight-bold font-mono">2. Posting Buku Besar</div>
+                  <div class="font-weight-bold font-mono text-dark">2. Posting Buku Besar</div>
                   <small class="text-secondary">Periksa mutasi saldo per akun</small>
                 </div>
-                <i class="fas fa-external-link-alt text-primary"></i>
+                <i class="fas fa-external-link-alt text-muted"></i>
               </a>
             </div>
             <div class="col-md-6 col-12 mb-2">
-              <a href="<?= site_url('labarugi') ?>" class="p-3 rounded border d-flex justify-content-between align-items-center text-decoration-none" style="background: #06162E; border-color: var(--border-subtle) !important; color: #fff;">
+              <a href="<?= site_url('labarugi') ?>" class="p-3 rounded border d-flex justify-content-between align-items-center text-decoration-none bg-white">
                 <div>
-                  <div class="font-weight-bold font-mono">3. Laporan Laba Rugi</div>
+                  <div class="font-weight-bold font-mono text-dark">3. Laporan Laba Rugi</div>
                   <small class="text-secondary">Pendapatan vs beban usaha</small>
                 </div>
-                <i class="fas fa-external-link-alt text-primary"></i>
+                <i class="fas fa-external-link-alt text-muted"></i>
               </a>
             </div>
             <div class="col-md-6 col-12 mb-2">
-              <a href="<?= site_url('jurnalumum') ?>" class="p-3 rounded border d-flex justify-content-between align-items-center text-decoration-none" style="background: #06162E; border-color: var(--border-subtle) !important; color: #fff;">
+              <a href="<?= site_url('jurnalumum') ?>" class="p-3 rounded border d-flex justify-content-between align-items-center text-decoration-none bg-white">
                 <div>
-                  <div class="font-weight-bold font-mono">4. Jurnal Umum Lengkap</div>
-                  <small class="text-secondary">Histori entri kronologis</small>
+                  <div class="font-weight-bold font-mono text-dark">4. Jurnal Umum Lengkap</div>
+                  <small class="text-secondary">Histori entri voucher kronologis</small>
                 </div>
-                <i class="fas fa-external-link-alt text-primary"></i>
+                <i class="fas fa-external-link-alt text-muted"></i>
               </a>
             </div>
           </div>
         </div>
         <div class="modal-footer d-flex justify-content-between">
-          <small class="text-secondary font-mono">SIA AKN SV-IPB &bull; Sistem Informasi Akuntansi</small>
-          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tutup</button>
+          <small class="text-muted font-mono">SIA AKN SV-IPB &bull; Sistem Informasi Akuntansi</small>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Tutup</button>
         </div>
       </div>
     </div>

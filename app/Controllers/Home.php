@@ -148,7 +148,42 @@ class Home extends BaseController
             ->get()
             ->getResult();
 
+        // Deteksi Periode Pembukuan Berdasarkan Data Transaksi Aktual
+        $periodRow = $db->table('tbl_transaksi')
+            ->select('MIN(tanggal) as min_date, MAX(tanggal) as max_date')
+            ->get()
+            ->getRow();
+
+        $bulanIndo = [
+            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+        ];
+
+        $periodeFormatted = 'Tahun Buku ' . date('Y');
+        $tahunBuku = date('Y');
+
+        if ($periodRow && $periodRow->min_date && $periodRow->max_date) {
+            $minTime = strtotime($periodRow->min_date);
+            $maxTime = strtotime($periodRow->max_date);
+            $mMin = (int)date('n', $minTime);
+            $yMin = date('Y', $minTime);
+            $mMax = (int)date('n', $maxTime);
+            $yMax = date('Y', $maxTime);
+            $tahunBuku = $yMax;
+
+            if ($yMin === $yMax && $mMin === $mMax) {
+                $periodeFormatted = ($bulanIndo[$mMin] ?? date('F', $minTime)) . ' ' . $yMin;
+            } elseif ($yMin === $yMax) {
+                $periodeFormatted = ($bulanIndo[$mMin] ?? date('M', $minTime)) . ' - ' . ($bulanIndo[$mMax] ?? date('M', $maxTime)) . ' ' . $yMin;
+            } else {
+                $periodeFormatted = ($bulanIndo[$mMin] ?? date('M', $minTime)) . ' ' . $yMin . ' - ' . ($bulanIndo[$mMax] ?? date('M', $maxTime)) . ' ' . $yMax;
+            }
+        }
+
         $data = [
+            'periode_formatted'    => $periodeFormatted,
+            'tahun_buku'           => $tahunBuku,
             'count_akun'           => $countAkun,
             'count_transaksi'      => $countTransaksi,
             'count_users'          => $countUsers,
